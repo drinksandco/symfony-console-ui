@@ -3,5 +3,5 @@ export interface InputOption {
     description: string
     defaultValue?: string
     value?: string
-    accept_value: boolean
+    acceptValue: boolean
 }

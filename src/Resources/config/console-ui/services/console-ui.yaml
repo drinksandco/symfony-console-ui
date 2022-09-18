@@ -1,13 +1,13 @@
 services:
   _defaults:
     autowire: false
-    autoconfigure: true
+    autoconfigure: false
     bind:
       $projectDir: '%kernel.project_dir%'
-      $env: '%env(APP_ENV)%'
 
   Drinksco\ConsoleUiBundle\Controller\AppController:
     class: Drinksco\ConsoleUiBundle\Controller\AppController
+    public: true
     arguments:
       $kernel: '@kernel'
       $template: '@twig'
@@ -22,7 +22,8 @@ services:
   Drinksco\ConsoleUiBundle\Queue\QueueCommandHandler:
     class: Drinksco\ConsoleUiBundle\Queue\QueueCommandHandler
     arguments:
-      $producer: '@enqueue.client.default_queue.lazy_producer'
+      $eventDispatcher: '@event_dispatcher'
+      $env: '%env(APP_ENV)%'
 
   Drinksco\ConsoleUiBundle\Queue\RunCommandProcessor:
     class: Drinksco\ConsoleUiBundle\Queue\RunCommandProcessor
