@@ -1,0 +1,32 @@
+services:
+  _defaults:
+    autowire: false
+    autoconfigure: true
+    bind:
+      $projectDir: '%kernel.project_dir%'
+      $env: '%env(APP_ENV)%'
+
+  Drinksco\ConsoleUiBundle\Controller\AppController:
+    class: Drinksco\ConsoleUiBundle\Controller\AppController
+    arguments:
+      $kernel: '@kernel'
+      $template: '@twig'
+    tags: [ 'controller.service_arguments' ]
+
+  Drinksco\ConsoleUiBundle\Controller\CommandScheduleController:
+    class: Drinksco\ConsoleUiBundle\Controller\CommandScheduleController
+    arguments:
+      $handler: '@Drinksco\ConsoleUiBundle\Queue\QueueCommandHandler'
+    tags: [ 'controller.service_arguments' ]
+
+  Drinksco\ConsoleUiBundle\Queue\QueueCommandHandler:
+    class: Drinksco\ConsoleUiBundle\Queue\QueueCommandHandler
+    arguments:
+      $producer: '@enqueue.client.default_queue.lazy_producer'
+
+  Drinksco\ConsoleUiBundle\Queue\RunCommandProcessor:
+    class: Drinksco\ConsoleUiBundle\Queue\RunCommandProcessor
+    arguments:
+      $hub: '@Symfony\Component\Mercure\HubInterface'
+    tags:
+      - { name: 'enqueue.client.processor', topicName: 'run_command' }

@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>Symfony Console UI</title>
+    {% block stylesheets %}
+        {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+        {{ encore_entry_link_tags('console-ui') }}
+
+        <!-- Renders a link tag (if your module requires any CSS)
+             <link rel="stylesheet" href="/build/console-ui-bundle.css"> -->
+    {% endblock %}
+    <link rel="manifest" href="/bundles/consoleui/manifest.json" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="/bundles/console-ui/images/icons/icon-72x72.png" />
+    <link rel="apple-touch-icon" href="/bundles/console-ui/images/icons/icon-96x96.png" />
+    <link rel="apple-touch-icon" href="/bundles/console-ui/images/icons/icon-128x128.png" />
+    <link rel="apple-touch-icon" href="/bundles/console-ui/images/icons/icon-144x144.png" />
+    <link rel="apple-touch-icon" href="/bundles/console-ui/images/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" href="/bundles/console-ui/images/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" href="/bundles/console-ui/images/icons/icon-384x384.png" />
+    <link rel="apple-touch-icon" href="/bundles/console-ui/images/icons/icon-512x512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+    <meta name="theme-color" content="#db4938" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans|Noto+Serif:400,400i,700,700i&display=swap" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<console-ui testsTypes="{{ commands|json_encode }}" tabs="{{ menu_items|json_encode }}"></console-ui>
+
+{% block javascripts %}
+{{ encore_entry_script_tags('component-loader') }}
+{{ encore_entry_script_tags('console-ui') }}
+<script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function() {
+            navigator.serviceWorker
+                .register("/bundles/consoleui/serviceWorker.js")
+                .then(res => console.log("service worker registered"))
+                .catch(err => console.log("service worker not registered", err))
+        })
+    }
+</script>
+<!-- Renders app.js & a webpack runtime.js file
+        <script src="/build/runtime.js" defer></script>
+        <script src="/build/app.js" defer></script>
+        See note belo -->
+{% endblock %}
+</body>
+</html>

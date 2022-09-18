@@ -1,0 +1,9 @@
+console_ui_app:
+  methods: [ GET ]
+  path: /console-ui/{namespace}
+  controller: Drinksco\ConsoleUiBundle\Controller\AppController
+
+console_ui_schedule_command:
+  methods: [ POST ]
+  path: /console-ui/schedule
+  controller: Drinksco\ConsoleUiBundle\Controller\CommandScheduleController

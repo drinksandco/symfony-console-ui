@@ -1,0 +1,25 @@
+{
+  "name": "drinksco/console-ui-bundle",
+  "description": "Material Web-components based Symfony Console Component User Interface",
+  "license": "BSD-3-Clause",
+  "type": "symfony-bundle",
+  "require": {
+    "php": "^8.1",
+    "symfony/mercure": "^0.6.1",
+    "enqueue/enqueue-bundle": "^0.10.16",
+    "symfony/framework-bundle": "^6.0",
+    "symfony/console": "^6.0",
+    "symfony/webpack-encore-bundle": "^1.15",
+    "symfony/twig-bundle": "^6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Drinksco\\ConsoleUiBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\Drinksco\\ConsoleUiBundle\\": "test/"
+    }
+  }
+}
