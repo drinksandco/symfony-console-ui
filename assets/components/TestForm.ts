@@ -167,7 +167,7 @@ export class TestForm extends LitElement {
     }
 
     private renderOptionField(option: InputOption) {
-        if (option.accept_value) {
+        if (option.acceptValue) {
             return html`
                 <mwc-textfield
                         outlined

@@ -31,7 +31,7 @@ class RunCommandProcessor implements Processor, CommandSubscriberInterface
         $this->hub->publish(
             new Update(
                 'http://example.com/' . $command[0],
-                $this->parseMessage('STOPPED', 'bin/console '. $commandline . PHP_EOL)
+                $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)
             )
         );
         $process = new Process(['./bin/console', ...$command], $this->projectDir);
