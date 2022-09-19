@@ -23,7 +23,8 @@
     "psalm/plugin-symfony": "^3.1",
     "phpstan/phpstan-symfony": "^1.2",
     "phpstan/extension-installer": "^1.1",
-    "phpstan/phpstan-webmozart-assert": "^1.2"
+    "phpstan/phpstan-webmozart-assert": "^1.2",
+    "phpro/grumphp": "^1.13"
   },
   "autoload": {
     "psr-4": {
@@ -53,7 +54,8 @@
   "config": {
     "allow-plugins": {
       "infection/extension-installer": true,
-      "phpstan/extension-installer": true
+      "phpstan/extension-installer": true,
+      "phpro/grumphp": true
     }
   }
 }
