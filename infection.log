@@ -313,7 +313,7 @@ Not Covered mutants:
  }
 
 
-15) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:15    [M] PublicVisibility
+15) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:13    [M] PublicVisibility
 
 --- Original
 +++ New
