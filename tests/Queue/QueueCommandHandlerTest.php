@@ -7,7 +7,6 @@ namespace Test\Drinksco\ConsoleUiBundle\Queue;
 use Drinksco\ConsoleUiBundle\Event\CommandScheduled;
 use Drinksco\ConsoleUiBundle\Queue\QueueCommandHandler;
 use Drinksco\ConsoleUiBundle\Queue\QueuedCommand;
-use Enqueue\Client\ProducerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

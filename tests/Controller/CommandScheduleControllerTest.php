@@ -49,4 +49,20 @@ class CommandScheduleControllerTest extends TestCase
 
         $controller->__invoke($request);
     }
+
+    public function testThrowBadRequestExceptionWithInvalidParameters(): void
+    {
+        $this->expectException(BadRequestException::class);
+        $handler = $this->createMock(QueueCommandHandler::class);
+        $controller = new CommandScheduleController($handler);
+
+        $request = new Request([], [], [], [], [], [
+            'HTTP_Content-Type' => 'application/form-urlencoded',
+            'HTTP_Accept' => 'application/json',
+        ],
+            '{"name":5,"arguments":[],"options":["--format=txt"]}'
+        );
+
+        $controller->__invoke($request);
+    }
 }

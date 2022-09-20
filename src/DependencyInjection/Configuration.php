@@ -22,17 +22,25 @@ final class Configuration implements ConfigurationInterface
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress MixedMethodCall
          */
-        $rootNode->children()
-            ->enumNode('command_provider')
-                ->values(['enqueue-php'])
+        $rootNode
+            ->children()
+                ->enumNode('command_provider')
+                    ->values(['enqueue_php'])->defaultValue('enqueue_php')
+                ->end()
             ->end()
-            ->arrayNode('provider_options')
-                ->scalarPrototype()->end()
-            ->end()
-            ->scalarNode('queue_name')
-                ->defaultValue('default_queue')
-            ->end()
-        ->end();
+            ->children()
+                ->arrayNode('provider_options')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('enqueue_php')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('queue_name')->defaultValue('default_queue')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

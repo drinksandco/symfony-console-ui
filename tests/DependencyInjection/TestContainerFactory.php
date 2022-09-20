@@ -16,9 +16,11 @@ use Twig\Loader\ArrayLoader;
 final class TestContainerFactory
 {
     private const DEFAULT_CONFIG = [
-        'command_provider' => 'enqueue-php',
+        'command_provider' => 'enqueue_php',
         'provider_options' => [
-            'queue_name' => 'default_queue',
+            'enqueue_php' => [
+                'queue_name' => 'default_queue',
+            ]
         ],
     ];
 
@@ -30,6 +32,7 @@ final class TestContainerFactory
         $extension = new ConsoleUiExtension();
         $containerBuilder->registerExtension($extension);
         $containerBuilder->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
+        $extension->loadInternal(self::DEFAULT_CONFIG, $containerBuilder);
 
         $compilerPass->process($containerBuilder);
 
@@ -42,12 +45,10 @@ final class TestContainerFactory
         $containerBuilder->setParameter('debug', false);
         $containerBuilder->register('kernel', TestKernel::class)
             ->addArgument('%environment%')
-            ->addArgument('%debug%')
-        ;
+            ->addArgument('%debug%');
         $containerBuilder->register(ArrayLoader::class, ArrayLoader::class);
         $containerBuilder->register('twig', Environment::class)
-            ->addArgument(new Reference(ArrayLoader::class))
-        ;
+            ->addArgument(new Reference(ArrayLoader::class));
 
         $containerBuilder->register('event_dispatcher', EventDispatcherInterface::class)
             ->setClass(EventDispatcher::class);
