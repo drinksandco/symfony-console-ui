@@ -13,6 +13,9 @@ import {EventSourceMessage} from "../model/EventSourceMessage";
 @customElement('test-case')
 export class TestCase extends LitElement {
     static styles = css`
+        mwc-list-item {
+            cursor: default;
+        }
         .play-button {
             padding-top: 15
         }
@@ -62,6 +65,9 @@ export class TestCase extends LitElement {
     @property({type: String})
     cliOutput = ''
 
+    @property({type: URL})
+    consoleEndpoint = 'http://localhost:3000'
+
     constructor() {
         super();
         this.testStatus = TestStatus.STOPPED
@@ -106,7 +112,10 @@ export class TestCase extends LitElement {
                     <p>${this.testType.name}</p>
                 </span>
                 <span slot="graphic" class="material-icons inverted play-button">
-                    <test-form testType="${JSON.stringify(this.testType)}"></test-form>
+                    <test-form 
+                            testType="${JSON.stringify(this.testType)}"
+                            consoleEndpoint="${this.consoleEndpoint}">
+                    </test-form>
                 </span>
                 <span slot="meta" class="material-icons side-icons">
                     <mwc-icon class="${showSuccessClass} success">done</mwc-icon>
