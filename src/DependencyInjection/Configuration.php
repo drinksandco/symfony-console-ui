@@ -35,7 +35,7 @@ final class Configuration implements ConfigurationInterface
                         ->arrayNode('enqueue_php')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('queue_name')->defaultValue('default_queue')->end()
+                                ->scalarNode('queue_name')->defaultValue('console_queue')->end()
                             ->end()
                         ->end()
                     ->end()

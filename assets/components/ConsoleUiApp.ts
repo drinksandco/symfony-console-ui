@@ -5,10 +5,12 @@ import './TestCase'
 import './TabsMenu'
 import '@material/mwc-list'
 import '@material/mwc-top-app-bar-fixed'
+import * as stream from "stream";
 
 @customElement('console-ui')
 export class ConsoleUiApp extends LitElement {
-    static styles = css``
+    static styles = css`
+    `
 
     @property({type: Array<TestType>})
     testsTypes = []
@@ -16,9 +18,12 @@ export class ConsoleUiApp extends LitElement {
     @property({type: Array<string>})
     tabs = []
 
+    @property({type: URL})
+    consoleEndpoint = 'http://localhost:3000'
+
     renderCommands(testType: TestType) {
         return html`
-            <test-case testType=${JSON.stringify(testType)}></test-case>
+            <test-case testType=${JSON.stringify(testType)} consoleEndpoint="${this.consoleEndpoint}"></test-case>
         `
     }
 
@@ -29,7 +34,7 @@ export class ConsoleUiApp extends LitElement {
 
                 <tabs-menu tabs="${JSON.stringify(this.tabs)}"></tabs-menu>
                 
-                <mwc-list activatable id="activatable" class="container">
+                <mwc-list class="container">
                     <li divider role="separator"></li>
                     ${this.testsTypes.map((testType: TestType) => this.renderCommands(testType))}
                 </mwc-list>

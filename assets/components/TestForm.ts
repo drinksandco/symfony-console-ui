@@ -19,7 +19,6 @@ export class TestForm extends LitElement {
     static styles = css`
         mwc-dialog {
             text-align: left;
-            --mdc-dialog-z-index: 1111;
             --mdc-dialog-min-width: 320px;
         }
         @media (min-width: 560px) { 
@@ -61,6 +60,8 @@ export class TestForm extends LitElement {
     inputArgumentValues: Array<string> = []
     @property()
     inputOptionValues: Array<string> = []
+    @property({type: URL})
+    consoleEndpoint = 'http://localhost:3000'
 
     @query('#dialog1')
     dialog!: HTMLDialogElement;
@@ -132,7 +133,7 @@ export class TestForm extends LitElement {
         this.hydrateInputs()
 
         await api(
-            'http://127.0.0.1:3000/cli/console-ui/schedule',
+            this.consoleEndpoint + '/cli/console-ui/schedule',
             {
                 method: 'POST',
                 headers: {
@@ -201,11 +202,13 @@ export class TestForm extends LitElement {
             + this.inputArgumentValues.map(value => value + ' ').join().replaceAll(',', '')
             + this.inputOptionValues.map(value => value + ' ').join().replaceAll(',', '')
     }
-
     render() {
         return html`
             <mwc-button outlined label="" icon="play_arrow" trailingIcon @click="${this.openDialog}"></mwc-button>
-            <mwc-dialog id="dialog1" class="" heading="${this.testType.name}">
+            <mwc-dialog id="dialog1" 
+                        class=""
+                        heading="${this.testType.name}"
+            >
                 <div>
                     <cli-output
                             content="${this.printCommand()}"
