@@ -24,7 +24,8 @@
     "phpstan/phpstan-symfony": "^1.2",
     "phpstan/extension-installer": "^1.1",
     "phpstan/phpstan-webmozart-assert": "^1.2",
-    "phpro/grumphp": "^1.13"
+    "phpro/grumphp": "^1.13",
+    "enqueue/fs": "^0.10.16"
   },
   "autoload": {
     "psr-4": {

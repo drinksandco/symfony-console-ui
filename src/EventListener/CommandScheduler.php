@@ -6,7 +6,7 @@ namespace Drinksco\ConsoleUiBundle\EventListener;
 
 use Drinksco\ConsoleUiBundle\Event\CommandScheduled;
 
-interface CommandSchedulerInterface
+interface CommandScheduler
 {
     public function enqueue(CommandScheduled $event): void;
 }

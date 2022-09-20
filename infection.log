@@ -46,49 +46,419 @@ Escaped mutants:
      private function getNoNamespacedCommands(Application $application) : array
 
 
-4) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:28    [M] MethodCallRemoval
+4) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:32    [M] MethodCallRemoval
 
 --- Original
 +++ New
 @@ @@
-         $loader->load('services/console-ui.yaml');
+     {
          $consoleUiConfig = $container->getExtensionConfig('console_ui');
          $mergedConfig = array_merge(...$consoleUiConfig);
 -        Assert::keyExists($mergedConfig, 'command_provider');
 +        
+         $container->addCompilerPass(new AddEventAliasesPass([CommandScheduled::class => CommandScheduled::class, ScheduledCommandReceived::class => ScheduledCommandReceived::class, CommandStarted::class => CommandStarted::class, CommandOutputReceived::class => CommandOutputReceived::class, CommandSucceeded::class => CommandSucceeded::class, CommandFailed::class => CommandFailed::class]));
          $provider = $mergedConfig['command_provider'];
          Assert::string($provider);
-         if ($provider === 'enqueue-php') {
 
 
-5) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:34    [M] MethodCallRemoval
+5) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:34    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $consoleUiConfig = $container->getExtensionConfig('console_ui');
+         $mergedConfig = array_merge(...$consoleUiConfig);
+         Assert::keyExists($mergedConfig, 'command_provider');
+-        $container->addCompilerPass(new AddEventAliasesPass([CommandScheduled::class => CommandScheduled::class, ScheduledCommandReceived::class => ScheduledCommandReceived::class, CommandStarted::class => CommandStarted::class, CommandOutputReceived::class => CommandOutputReceived::class, CommandSucceeded::class => CommandSucceeded::class, CommandFailed::class => CommandFailed::class]));
++        $container->addCompilerPass(new AddEventAliasesPass([ScheduledCommandReceived::class => ScheduledCommandReceived::class, CommandStarted::class => CommandStarted::class, CommandOutputReceived::class => CommandOutputReceived::class, CommandSucceeded::class => CommandSucceeded::class, CommandFailed::class => CommandFailed::class]));
+         $provider = $mergedConfig['command_provider'];
+         Assert::string($provider);
+         if ($provider === 'enqueue_php') {
+
+
+6) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:34    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $consoleUiConfig = $container->getExtensionConfig('console_ui');
+         $mergedConfig = array_merge(...$consoleUiConfig);
+         Assert::keyExists($mergedConfig, 'command_provider');
+-        $container->addCompilerPass(new AddEventAliasesPass([CommandScheduled::class => CommandScheduled::class, ScheduledCommandReceived::class => ScheduledCommandReceived::class, CommandStarted::class => CommandStarted::class, CommandOutputReceived::class => CommandOutputReceived::class, CommandSucceeded::class => CommandSucceeded::class, CommandFailed::class => CommandFailed::class]));
++        
+         $provider = $mergedConfig['command_provider'];
+         Assert::string($provider);
+         if ($provider === 'enqueue_php') {
+
+
+7) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:47    [M] MethodCallRemoval
 
 --- Original
 +++ New
 @@ @@
          $provider = $mergedConfig['command_provider'];
          Assert::string($provider);
-         if ($provider === 'enqueue-php') {
+         if ($provider === 'enqueue_php') {
 -            Assert::keyExists($mergedConfig, 'provider_options');
 +            
              Assert::isArray($mergedConfig['provider_options']);
-             $providerOptions = $mergedConfig['provider_options'];
-             Assert::keyExists($providerOptions, 'queue_name');
+             Assert::keyExists($mergedConfig['provider_options'], 'enqueue_php');
+             Assert::isArray($mergedConfig['provider_options']['enqueue_php']);
 
 
-6) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:37    [M] MethodCallRemoval
+8) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:49    [M] MethodCallRemoval
 
 --- Original
 +++ New
 @@ @@
+         if ($provider === 'enqueue_php') {
              Assert::keyExists($mergedConfig, 'provider_options');
              Assert::isArray($mergedConfig['provider_options']);
-             $providerOptions = $mergedConfig['provider_options'];
+-            Assert::keyExists($mergedConfig['provider_options'], 'enqueue_php');
++            
+             Assert::isArray($mergedConfig['provider_options']['enqueue_php']);
+             $providerOptions = $mergedConfig['provider_options']['enqueue_php'];
+             Assert::keyExists($providerOptions, 'queue_name');
+
+
+9) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:52    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+             Assert::keyExists($mergedConfig['provider_options'], 'enqueue_php');
+             Assert::isArray($mergedConfig['provider_options']['enqueue_php']);
+             $providerOptions = $mergedConfig['provider_options']['enqueue_php'];
 -            Assert::keyExists($providerOptions, 'queue_name');
 +            
              Assert::string($providerOptions['queue_name']);
              $queueName = $providerOptions['queue_name'];
-             $container->register(CommandSchedulerInterface::class, EnqueueCommandScheduler::class)->addArgument(new Reference(sprintf('enqueue.client.%s.lazy_producer', $queueName)));
+             $commandSchedulerDefinition = $container->register(CommandScheduler::class, EnqueueCommandScheduler::class)->addArgument(new Reference(sprintf('enqueue.client.%s.lazy_producer', $queueName)));
+
+
+10) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:31    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function loadInternal(array $mergedConfig, ContainerBuilder $container) : void
+     {
+         $this->configureControllers($container);
+-        $this->configureCommandProcessor($container);
++        
+         $this->configureCommandHandler($container);
+         $this->configureCommandWatcher($container);
+     }
+
+
+11) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:33    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $this->configureControllers($container);
+         $this->configureCommandProcessor($container);
+         $this->configureCommandHandler($container);
+-        $this->configureCommandWatcher($container);
++        
+     }
+     private function configureControllers(ContainerBuilder $containerBuilder) : void
+     {
+
+
+12) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:41    [M] TrueValue
+
+--- Original
++++ New
+@@ @@
+     }
+     private function configureControllers(ContainerBuilder $containerBuilder) : void
+     {
+-        $containerBuilder->register(AppController::class, AppController::class)->addArgument(new Reference('kernel'))->addArgument(new Reference('twig'))->setAutoconfigured(true)->addTag('controller.service_arguments');
++        $containerBuilder->register(AppController::class, AppController::class)->addArgument(new Reference('kernel'))->addArgument(new Reference('twig'))->setAutoconfigured(false)->addTag('controller.service_arguments');
+         $containerBuilder->register(CommandScheduleController::class, CommandScheduleController::class)->addArgument(new Reference(QueueCommandHandler::class))->setAutoconfigured(true)->addTag('controller.service_arguments');
+     }
+     private function configureCommandProcessor(ContainerBuilder $containerBuilder) : void
+
+
+13) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:45    [M] TrueValue
+
+--- Original
++++ New
+@@ @@
+     private function configureControllers(ContainerBuilder $containerBuilder) : void
+     {
+         $containerBuilder->register(AppController::class, AppController::class)->addArgument(new Reference('kernel'))->addArgument(new Reference('twig'))->setAutoconfigured(true)->addTag('controller.service_arguments');
+-        $containerBuilder->register(CommandScheduleController::class, CommandScheduleController::class)->addArgument(new Reference(QueueCommandHandler::class))->setAutoconfigured(true)->addTag('controller.service_arguments');
++        $containerBuilder->register(CommandScheduleController::class, CommandScheduleController::class)->addArgument(new Reference(QueueCommandHandler::class))->setAutoconfigured(false)->addTag('controller.service_arguments');
+     }
+     private function configureCommandProcessor(ContainerBuilder $containerBuilder) : void
+     {
+
+
+14) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:54    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $configuration = $this->getConfiguration([], $containerBuilder);
+         Assert::notNull($configuration);
+         $config = $this->processConfiguration($configuration, []);
+-        $containerBuilder->register(ProcessFactory::class, SymfonyProcessFactory::class);
++        
+         if ('enqueue_php' === $config['command_provider']) {
+             $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)->addArgument(new Reference('event_dispatcher'))->addArgument(new Reference(ProcessFactory::class))->addArgument('%kernel.project_dir%')->setAutoconfigured(true)->addTag('enqueue.client.processor', ['name' => 'enqueue.client.processor', 'topicName' => 'run_command']);
+         }
+
+
+15) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:56    [M] Identical
+
+--- Original
++++ New
+@@ @@
+         Assert::notNull($configuration);
+         $config = $this->processConfiguration($configuration, []);
+         $containerBuilder->register(ProcessFactory::class, SymfonyProcessFactory::class);
+-        if ('enqueue_php' === $config['command_provider']) {
++        if ('enqueue_php' !== $config['command_provider']) {
+             $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)->addArgument(new Reference('event_dispatcher'))->addArgument(new Reference(ProcessFactory::class))->addArgument('%kernel.project_dir%')->setAutoconfigured(true)->addTag('enqueue.client.processor', ['name' => 'enqueue.client.processor', 'topicName' => 'run_command']);
+         }
+     }
+
+
+16) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:57    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $config = $this->processConfiguration($configuration, []);
+         $containerBuilder->register(ProcessFactory::class, SymfonyProcessFactory::class);
+         if ('enqueue_php' === $config['command_provider']) {
+-            $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)->addArgument(new Reference('event_dispatcher'))->addArgument(new Reference(ProcessFactory::class))->addArgument('%kernel.project_dir%')->setAutoconfigured(true)->addTag('enqueue.client.processor', ['name' => 'enqueue.client.processor', 'topicName' => 'run_command']);
++            
+         }
+     }
+     private function configureCommandHandler(ContainerBuilder $containerBuilder) : void
+
+
+17) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:61    [M] TrueValue
+
+--- Original
++++ New
+@@ @@
+         $config = $this->processConfiguration($configuration, []);
+         $containerBuilder->register(ProcessFactory::class, SymfonyProcessFactory::class);
+         if ('enqueue_php' === $config['command_provider']) {
+-            $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)->addArgument(new Reference('event_dispatcher'))->addArgument(new Reference(ProcessFactory::class))->addArgument('%kernel.project_dir%')->setAutoconfigured(true)->addTag('enqueue.client.processor', ['name' => 'enqueue.client.processor', 'topicName' => 'run_command']);
++            $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)->addArgument(new Reference('event_dispatcher'))->addArgument(new Reference(ProcessFactory::class))->addArgument('%kernel.project_dir%')->setAutoconfigured(false)->addTag('enqueue.client.processor', ['name' => 'enqueue.client.processor', 'topicName' => 'run_command']);
+         }
+     }
+     private function configureCommandHandler(ContainerBuilder $containerBuilder) : void
+
+
+18) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:64    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $config = $this->processConfiguration($configuration, []);
+         $containerBuilder->register(ProcessFactory::class, SymfonyProcessFactory::class);
+         if ('enqueue_php' === $config['command_provider']) {
+-            $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)->addArgument(new Reference('event_dispatcher'))->addArgument(new Reference(ProcessFactory::class))->addArgument('%kernel.project_dir%')->setAutoconfigured(true)->addTag('enqueue.client.processor', ['name' => 'enqueue.client.processor', 'topicName' => 'run_command']);
++            $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)->addArgument(new Reference('event_dispatcher'))->addArgument(new Reference(ProcessFactory::class))->addArgument('%kernel.project_dir%')->setAutoconfigured(true)->addTag('enqueue.client.processor', ['topicName' => 'run_command']);
+         }
+     }
+     private function configureCommandHandler(ContainerBuilder $containerBuilder) : void
+
+
+19) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:78    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function configureCommandWatcher(ContainerBuilder $containerBuilder) : void
+     {
+-        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
++        
+     }
+ }
+
+
+20) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:80    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function configureCommandWatcher(ContainerBuilder $containerBuilder) : void
+     {
+-        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
++        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
+     }
+ }
+
+
+21) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:84    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function configureCommandWatcher(ContainerBuilder $containerBuilder) : void
+     {
+-        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
++        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
+     }
+ }
+
+
+22) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:88    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function configureCommandWatcher(ContainerBuilder $containerBuilder) : void
+     {
+-        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
++        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
+     }
+ }
+
+
+23) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:92    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function configureCommandWatcher(ContainerBuilder $containerBuilder) : void
+     {
+-        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
++        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
+     }
+ }
+
+
+24) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:96    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function configureCommandWatcher(ContainerBuilder $containerBuilder) : void
+     {
+-        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
++        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['method' => 'handleCommandFailed']);
+     }
+ }
+
+
+25) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:26    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     public static function execute(ProcessFactory $processFactory, EventDispatcherInterface $eventDispatcher, string $commandLine, string $projectDir) : void
+     {
+         $command = explode(' ', $commandLine);
+-        $eventDispatcher->dispatch(new ScheduledCommandReceived('STOPPED', $command[0], $commandLine));
++        $eventDispatcher->dispatch(new ScheduledCommandReceived('STOPPED', $command[1], $commandLine));
+         $process = $processFactory->create($command, $projectDir);
+         try {
+             $process->start();
+
+
+26) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:34    [M] Identical
+
+--- Original
++++ New
+@@ @@
+             $eventDispatcher->dispatch(new CommandStarted('RUNNING', '', $process->getPid()));
+             while ($process->isRunning()) {
+                 $incrementalOutput = $process->getIncrementalOutput();
+-                if ('' === $incrementalOutput) {
++                if ('' !== $incrementalOutput) {
+                     continue;
+                 }
+                 $eventDispatcher->dispatch(new CommandOutputReceived('RUNNING', $command[0], $incrementalOutput, $process->getPid()));
+
+
+27) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:40    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+                 if ('' === $incrementalOutput) {
+                     continue;
+                 }
+-                $eventDispatcher->dispatch(new CommandOutputReceived('RUNNING', $command[0], $incrementalOutput, $process->getPid()));
++                $eventDispatcher->dispatch(new CommandOutputReceived('RUNNING', $command[1], $incrementalOutput, $process->getPid()));
+             }
+             if (!$process->isSuccessful()) {
+                 throw new ProcessFailedException($process);
+
+
+28) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:52    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+             if (!$process->isSuccessful()) {
+                 throw new ProcessFailedException($process);
+             }
+-            $eventDispatcher->dispatch(new CommandOutputReceived('RUNNING', $command[0], $process->getIncrementalOutput(), $process->getPid()));
++            $eventDispatcher->dispatch(new CommandOutputReceived('RUNNING', $command[1], $process->getIncrementalOutput(), $process->getPid()));
+             $eventDispatcher->dispatch(new CommandSucceeded('SUCCEEDED', $command[0], $process->getStatus(), $process->getPid()));
+         } catch (ProcessFailedException $exception) {
+             $eventDispatcher->dispatch(new CommandFailed('FAILED', $command[0], $process->getErrorOutput(), $process->getStatus(), $process->getPid()));
+
+
+29) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:59    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+                 throw new ProcessFailedException($process);
+             }
+             $eventDispatcher->dispatch(new CommandOutputReceived('RUNNING', $command[0], $process->getIncrementalOutput(), $process->getPid()));
+-            $eventDispatcher->dispatch(new CommandSucceeded('SUCCEEDED', $command[0], $process->getStatus(), $process->getPid()));
++            $eventDispatcher->dispatch(new CommandSucceeded('SUCCEEDED', $command[1], $process->getStatus(), $process->getPid()));
+         } catch (ProcessFailedException $exception) {
+             $eventDispatcher->dispatch(new CommandFailed('FAILED', $command[0], $process->getErrorOutput(), $process->getStatus(), $process->getPid()));
+             throw $exception;
+
+
+30) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:66    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+             $eventDispatcher->dispatch(new CommandOutputReceived('RUNNING', $command[0], $process->getIncrementalOutput(), $process->getPid()));
+             $eventDispatcher->dispatch(new CommandSucceeded('SUCCEEDED', $command[0], $process->getStatus(), $process->getPid()));
+         } catch (ProcessFailedException $exception) {
+-            $eventDispatcher->dispatch(new CommandFailed('FAILED', $command[0], $process->getErrorOutput(), $process->getStatus(), $process->getPid()));
++            $eventDispatcher->dispatch(new CommandFailed('FAILED', $command[1], $process->getErrorOutput(), $process->getStatus(), $process->getPid()));
+             throw $exception;
+         }
+     }
+ }
+
+
+31) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:72    [M] Throw_
+
+--- Original
++++ New
+@@ @@
+             $eventDispatcher->dispatch(new CommandSucceeded('SUCCEEDED', $command[0], $process->getStatus(), $process->getPid()));
+         } catch (ProcessFailedException $exception) {
+             $eventDispatcher->dispatch(new CommandFailed('FAILED', $command[0], $process->getErrorOutput(), $process->getStatus(), $process->getPid()));
+-            throw $exception;
++            $exception;
+         }
+     }
+ }
 
 
 Timed Out mutants:
@@ -100,12 +470,12 @@ Skipped mutants:
 Not Covered mutants:
 ====================
 
-1) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:22    [M] MethodCallRemoval
+1) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:24    [M] MethodCallRemoval
 
 --- Original
 +++ New
 @@ @@
-     private const DEFAULT_CONFIG = ['command_provider' => 'enqueue-php', 'provider_options' => ['command_queue' => 'default_queue']];
+     private const DEFAULT_CONFIG = [];
      public function build(ContainerBuilder $container) : void
      {
 -        $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
@@ -115,7 +485,7 @@ Not Covered mutants:
  }
 
 
-2) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:23    [M] MethodCallRemoval
+2) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:25    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -231,698 +601,3 @@ Not Covered mutants:
 +        return count($commands) > 1 ? array_slice($commands, 0, 1, true) : $commands;
      }
  }
-
-
-10) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/CommandScheduleController.php:35    [M] DecrementInteger
-
---- Original
-+++ New
-@@ @@
-         } catch (JsonException $exception) {
-             throw new BadRequestException('Invalid Json Request Given', 0, $exception);
-         } catch (InvalidArgumentException $exception) {
--            throw new BadRequestException($exception->getMessage(), 0, $exception);
-+            throw new BadRequestException($exception->getMessage(), -1, $exception);
-         }
-         $command = new QueuedCommand($parsedBody['name'], $parsedBody['arguments'], $parsedBody['options']);
-         $this->handler->handle($command);
-
-
-11) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/CommandScheduleController.php:35    [M] IncrementInteger
-
---- Original
-+++ New
-@@ @@
-         } catch (JsonException $exception) {
-             throw new BadRequestException('Invalid Json Request Given', 0, $exception);
-         } catch (InvalidArgumentException $exception) {
--            throw new BadRequestException($exception->getMessage(), 0, $exception);
-+            throw new BadRequestException($exception->getMessage(), 1, $exception);
-         }
-         $command = new QueuedCommand($parsedBody['name'], $parsedBody['arguments'], $parsedBody['options']);
-         $this->handler->handle($command);
-
-
-12) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/CommandScheduleController.php:35    [M] Throw_
-
---- Original
-+++ New
-@@ @@
-         } catch (JsonException $exception) {
-             throw new BadRequestException('Invalid Json Request Given', 0, $exception);
-         } catch (InvalidArgumentException $exception) {
--            throw new BadRequestException($exception->getMessage(), 0, $exception);
-+            new BadRequestException($exception->getMessage(), 0, $exception);
-         }
-         $command = new QueuedCommand($parsedBody['name'], $parsedBody['arguments'], $parsedBody['options']);
-         $this->handler->handle($command);
-
-
-13) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/Configuration.php:25    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-     {
-         $treeBuilder = new TreeBuilder('console_ui');
-         $rootNode = $treeBuilder->getRootNode();
--        /**
--         * @psalm-suppress PossiblyNullReference
--         * @psalm-suppress PossiblyUndefinedMethod
--         * @psalm-suppress MixedMethodCall
--         */
--        $rootNode->children()->enumNode('command_provider')->values(['enqueue-php'])->end()->arrayNode('provider_options')->scalarPrototype()->end()->end()->scalarNode('queue_name')->defaultValue('default_queue')->end()->end();
-+        
-         return $treeBuilder;
-     }
- }
-
-
-14) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/Configuration.php:27    [M] ArrayItemRemoval
-
---- Original
-+++ New
-@@ @@
-          * @psalm-suppress PossiblyUndefinedMethod
-          * @psalm-suppress MixedMethodCall
-          */
--        $rootNode->children()->enumNode('command_provider')->values(['enqueue-php'])->end()->arrayNode('provider_options')->scalarPrototype()->end()->end()->scalarNode('queue_name')->defaultValue('default_queue')->end()->end();
-+        $rootNode->children()->enumNode('command_provider')->values([])->end()->arrayNode('provider_options')->scalarPrototype()->end()->end()->scalarNode('queue_name')->defaultValue('default_queue')->end()->end();
-         return $treeBuilder;
-     }
- }
-
-
-15) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:13    [M] PublicVisibility
-
---- Original
-+++ New
-@@ @@
- class ConsoleUiExtension extends ConfigurableExtension
- {
-     /** @param array<mixed> $mergedConfig */
--    public function loadInternal(array $mergedConfig, ContainerBuilder $container) : void
-+    protected function loadInternal(array $mergedConfig, ContainerBuilder $container) : void
-     {
-     }
- }
-
-
-16) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:31    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-17) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:33    [M] IncrementInteger
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update('http://example.com/' . $command[1], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-18) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:33    [M] Concat
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update($command[0] . 'http://example.com/', $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-19) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:33    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update($command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-20) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:33    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update('http://example.com/', $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-21) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:34    [M] Concat
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', $commandline . 'bin/console ' . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-22) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:34    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', $commandline . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-23) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:34    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-24) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:34    [M] Concat
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . PHP_EOL . $commandline)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-25) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:34    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-     {
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
--        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-+        $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-
-
-26) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:37    [M] SpreadOneItem
-
---- Original
-+++ New
-@@ @@
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
-         $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
--        $process = new Process(['./bin/console', ...$command], $this->projectDir);
-+        $process = new Process(['./bin/console', [...$command][0]], $this->projectDir);
-         $process->setPty(true);
-         try {
-             $process->start();
-
-
-27) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:37    [M] SpreadRemoval
-
---- Original
-+++ New
-@@ @@
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
-         $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
--        $process = new Process(['./bin/console', ...$command], $this->projectDir);
-+        $process = new Process(['./bin/console', $command], $this->projectDir);
-         $process->setPty(true);
-         try {
-             $process->start();
-
-
-28) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:37    [M] ArrayItemRemoval
-
---- Original
-+++ New
-@@ @@
-         $commandline = $message->getBody();
-         $command = explode(' ', $commandline);
-         $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
--        $process = new Process(['./bin/console', ...$command], $this->projectDir);
-+        $process = new Process([...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
-             $process->start();
-
-
-29) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:38    [M] TrueValue
-
---- Original
-+++ New
-@@ @@
-         $command = explode(' ', $commandline);
-         $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
--        $process->setPty(true);
-+        $process->setPty(false);
-         try {
-             $process->start();
-             while ($process->isRunning()) {
-
-
-30) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:38    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-         $command = explode(' ', $commandline);
-         $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('STOPPED', 'bin/console ' . $commandline . PHP_EOL)));
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
--        $process->setPty(true);
-+        
-         try {
-             $process->start();
-             while ($process->isRunning()) {
-
-
-31) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:41    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-         $process = new Process(['./bin/console', ...$command], $this->projectDir);
-         $process->setPty(true);
-         try {
--            $process->start();
-+            
-             while ($process->isRunning()) {
-                 $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             }
-
-
-32) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:42    [M] While_
-
---- Original
-+++ New
-@@ @@
-         $process->setPty(true);
-         try {
-             $process->start();
--            while ($process->isRunning()) {
-+            while (false) {
-                 $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             }
-             if (!$process->isSuccessful()) {
-
-
-33) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:43    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-         try {
-             $process->start();
-             while ($process->isRunning()) {
--                $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+                
-             }
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-
-
-34) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:45    [M] IncrementInteger
-
---- Original
-+++ New
-@@ @@
-         try {
-             $process->start();
-             while ($process->isRunning()) {
--                $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+                $this->hub->publish(new Update('http://example.com/' . $command[1], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             }
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-
-
-35) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:45    [M] Concat
-
---- Original
-+++ New
-@@ @@
-         try {
-             $process->start();
-             while ($process->isRunning()) {
--                $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+                $this->hub->publish(new Update($command[0] . 'http://example.com/', $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             }
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-
-
-36) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:45    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-         try {
-             $process->start();
-             while ($process->isRunning()) {
--                $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+                $this->hub->publish(new Update($command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             }
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-
-
-37) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:45    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-         try {
-             $process->start();
-             while ($process->isRunning()) {
--                $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+                $this->hub->publish(new Update('http://example.com/', $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             }
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-
-
-38) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:51    [M] LogicalNot
-
---- Original
-+++ New
-@@ @@
-             while ($process->isRunning()) {
-                 $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             }
--            if (!$process->isSuccessful()) {
-+            if ($process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-             }
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-
-
-39) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:52    [M] Throw_
-
---- Original
-+++ New
-@@ @@
-                 $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             }
-             if (!$process->isSuccessful()) {
--                throw new ProcessFailedException($process);
-+                new ProcessFailedException($process);
-             }
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-
-
-40) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:54    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-             }
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+            
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-
-
-41) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:56    [M] IncrementInteger
-
---- Original
-+++ New
-@@ @@
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-             }
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+            $this->hub->publish(new Update('http://example.com/' . $command[1], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-
-
-42) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:56    [M] Concat
-
---- Original
-+++ New
-@@ @@
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-             }
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+            $this->hub->publish(new Update($command[0] . 'http://example.com/', $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-
-
-43) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:56    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-             }
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+            $this->hub->publish(new Update($command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-
-
-44) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:56    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-             if (!$process->isSuccessful()) {
-                 throw new ProcessFailedException($process);
-             }
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-+            $this->hub->publish(new Update('http://example.com/', $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-
-
-45) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:61    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-                 throw new ProcessFailedException($process);
-             }
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-+            
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-
-
-46) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:63    [M] IncrementInteger
-
---- Original
-+++ New
-@@ @@
-                 throw new ProcessFailedException($process);
-             }
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-+            $this->hub->publish(new Update('http://example.com/' . $command[1], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-
-
-47) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:63    [M] Concat
-
---- Original
-+++ New
-@@ @@
-                 throw new ProcessFailedException($process);
-             }
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-+            $this->hub->publish(new Update($command[0] . 'http://example.com/', $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-
-
-48) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:63    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-                 throw new ProcessFailedException($process);
-             }
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-+            $this->hub->publish(new Update($command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-
-
-49) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:63    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-                 throw new ProcessFailedException($process);
-             }
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('RUNNING', $process->getIncrementalOutput())));
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-+            $this->hub->publish(new Update('http://example.com/', $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-
-
-50) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:70    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-+            
-             return Result::reject(sprintf('The process failed with exception: "%s" in %s at %s', $e->getMessage(), $e->getFile(), $e->getLine()));
-         }
-     }
-
-
-51) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:72    [M] IncrementInteger
-
---- Original
-+++ New
-@@ @@
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-+            $this->hub->publish(new Update('http://example.com/' . $command[1], $this->parseMessage('FAILED', $process->getErrorOutput())));
-             return Result::reject(sprintf('The process failed with exception: "%s" in %s at %s', $e->getMessage(), $e->getFile(), $e->getLine()));
-         }
-     }
-
-
-52) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:72    [M] Concat
-
---- Original
-+++ New
-@@ @@
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-+            $this->hub->publish(new Update($command[0] . 'http://example.com/', $this->parseMessage('FAILED', $process->getErrorOutput())));
-             return Result::reject(sprintf('The process failed with exception: "%s" in %s at %s', $e->getMessage(), $e->getFile(), $e->getLine()));
-         }
-     }
-
-
-53) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:72    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-+            $this->hub->publish(new Update($command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-             return Result::reject(sprintf('The process failed with exception: "%s" in %s at %s', $e->getMessage(), $e->getFile(), $e->getLine()));
-         }
-     }
-
-
-54) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:72    [M] ConcatOperandRemoval
-
---- Original
-+++ New
-@@ @@
-             $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('SUCCEED', $process->getStatus())));
-             return Result::ACK;
-         } catch (ProcessFailedException $e) {
--            $this->hub->publish(new Update('http://example.com/' . $command[0], $this->parseMessage('FAILED', $process->getErrorOutput())));
-+            $this->hub->publish(new Update('http://example.com/', $this->parseMessage('FAILED', $process->getErrorOutput())));
-             return Result::reject(sprintf('The process failed with exception: "%s" in %s at %s', $e->getMessage(), $e->getFile(), $e->getLine()));
-         }
-     }
-
-
-55) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/RunCommandProcessor.php:88    [M] ArrayItemRemoval
-
---- Original
-+++ New
-@@ @@
-     }
-     private function parseMessage(string $commandStatus, string $content) : string
-     {
--        return json_encode(['status' => $commandStatus, 'content' => $content], JSON_THROW_ON_ERROR);
-+        return json_encode(['content' => $content], JSON_THROW_ON_ERROR);
-     }
-     public static function getSubscribedCommand() : string
-     {

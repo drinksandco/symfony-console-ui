@@ -1,0 +1,48 @@
+name: 🐞 Bug Report
+description: Create a report to help us improve
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees:
+  - kpicaza
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: What happened?
+      description: A clear and concise description of what the bug is.
+      placeholder: Also tell us, what did you expect to happen?
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: textarea
+    id: steps-reproduce
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/drinksandco/symfony-console-ui/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow our user Code of Conduct
+          required: true
+    validations:
+      required: true

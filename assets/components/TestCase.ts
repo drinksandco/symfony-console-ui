@@ -94,7 +94,7 @@ export class TestCase extends LitElement {
         const runningClass: string = this.testStatus === TestStatus.RUNNING ? '' : 'hidden'
         const showSuccessClass: string = [
             TestStatus.STOPPED,
-            TestStatus.SUCCEED
+            TestStatus.SUCCEEDED
         ].includes(this.testStatus) ? '': 'hidden'
         const showFailClass: string = [
             TestStatus.FAILED,
