@@ -53,15 +53,25 @@ class ConsoleUiExtension extends ConfigurableExtension
         $config = $this->processConfiguration($configuration, []);
         $containerBuilder->register(ProcessFactory::class, SymfonyProcessFactory::class);
 
-        if ('enqueue_php' === $config['command_provider']) {
+        $provider = $config['command_provider'] ?? [];
+        Assert::string($provider);
+        if ('enqueue_php' === $provider) {
+            Assert::keyExists($config, 'provider_options');
+            Assert::isArray($config['provider_options']);
+            Assert::keyExists($config['provider_options'], 'enqueue_php');
+            Assert::isArray($config['provider_options']['enqueue_php']);
+            $providerOptions = $config['provider_options']['enqueue_php'];
+            Assert::keyExists($providerOptions, 'queue_name');
+            Assert::string($providerOptions['queue_name']);
+            $queueName = $providerOptions['queue_name'];
             $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)
                 ->addArgument(new Reference('event_dispatcher'))
                 ->addArgument(new Reference(ProcessFactory::class))
                 ->addArgument('%kernel.project_dir%')
                 ->setAutoconfigured(true)
                 ->addTag(
-                    'enqueue.client.processor',
-                    ['name' => 'enqueue.client.processor', 'topicName' => 'run_command'],
+                    'enqueue.command_subscriber',
+                    ['name' => 'enqueue.command_subscriber', 'topicName' => 'run_command', 'client' => $queueName],
                 );
         }
     }
