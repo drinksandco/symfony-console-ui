@@ -1,6 +1,6 @@
 export enum TestStatus {
     STOPPED = 'STOPPED',
     RUNNING = 'RUNNING',
-    SUCCEED = 'SUCCEED',
+    SUCCEEDED = 'SUCCEEDED',
     FAILED = 'FAILED',
 }

@@ -6,7 +6,8 @@ namespace Drinksco\ConsoleUiBundle\DependencyInjection;
 
 use Drinksco\ConsoleUiBundle\Controller\AppController;
 use Drinksco\ConsoleUiBundle\Controller\CommandScheduleController;
-use Drinksco\ConsoleUiBundle\EventListener\CommandSchedulerInterface;
+use Drinksco\ConsoleUiBundle\Event\CommandScheduled;
+use Drinksco\ConsoleUiBundle\EventListener\CommandScheduler;
 use Drinksco\ConsoleUiBundle\Queue\QueueCommandHandler;
 use PHPUnit\Framework\TestCase;
 use Test\Drinksco\ConsoleUiBundle\DependencyInjection\TestContainerFactory;
@@ -49,11 +50,20 @@ class ConsoleUiCompilerPassTest extends TestCase
     public function testRegisterCommandSchedulerInTheContainer(): void
     {
         $containerBuilder = TestContainerFactory::create(new ConsoleUiCompilerPass());
-        $definition = $containerBuilder->getDefinition(CommandSchedulerInterface::class);
+        $definition = $containerBuilder->getDefinition(CommandScheduler::class);
         $this->assertFalse($definition->isAutowired());
         $this->assertFalse($definition->isLazy());
+        $tags = $definition->getTags();
+        $this->assertSame([
+            "kernel.event_listener" => [
+                [
+                    "event" => CommandScheduled::class,
+                    'method' => 'enqueue'
+                ]
+            ]
+        ], $tags);
 
-        $service = $containerBuilder->get(CommandSchedulerInterface::class);
-        $this->assertInstanceOf(CommandSchedulerInterface::class, $service);
+        $service = $containerBuilder->get(CommandScheduler::class);
+        $this->assertInstanceOf(CommandScheduler::class, $service);
     }
 }

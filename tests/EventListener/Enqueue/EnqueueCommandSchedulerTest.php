@@ -12,7 +12,7 @@ class EnqueueCommandSchedulerTest extends TestCase
 {
     public function testAddCommandToQueueJobProducerUsingEnqueuePHPLibrary(): void
     {
-        $event = new CommandScheduled('help help --format=txt --env=test');
+        $event = new CommandScheduled('help help --format=txt --env=test', null);
 
         $producer = $this->createMock(ProducerInterface::class);
         $producer->expects($this->once())

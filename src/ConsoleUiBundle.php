@@ -11,10 +11,12 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class ConsoleUiBundle extends Bundle
 {
     private const DEFAULT_CONFIG = [
-        'command_provider' => 'enqueue-php',
-        'provider_options' => [
-            'command_queue' => 'default_queue',
-        ],
+//        'command_provider' => 'enqueue-php',
+//        'provider_options' => [
+//            'enqueue-php' => [
+//                'queue_name' => 'default_queue',
+//            ]
+//        ],
     ];
 
     public function build(ContainerBuilder $container): void
