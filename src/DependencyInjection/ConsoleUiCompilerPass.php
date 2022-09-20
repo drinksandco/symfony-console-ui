@@ -12,9 +12,6 @@ use Drinksco\ConsoleUiBundle\Event\CommandSucceeded;
 use Drinksco\ConsoleUiBundle\Event\ScheduledCommandReceived;
 use Drinksco\ConsoleUiBundle\EventListener\CommandScheduler;
 use Drinksco\ConsoleUiBundle\EventListener\Enqueue\EnqueueCommandScheduler;
-use Drinksco\ConsoleUiBundle\Queue\ProcessFactory\ProcessFactory;
-use Drinksco\ConsoleUiBundle\Queue\ProcessFactory\SymfonyProcessFactory;
-use Drinksco\ConsoleUiBundle\Queue\Enqueue\RunCommandProcessor;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -25,7 +22,6 @@ class ConsoleUiCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-
         $consoleUiConfig = $container->getExtensionConfig('console_ui');
         $mergedConfig = array_merge(...$consoleUiConfig);
 
@@ -40,7 +36,7 @@ class ConsoleUiCompilerPass implements CompilerPassInterface
             CommandFailed::class => CommandFailed::class,
         ]));
 
-        $provider = $mergedConfig['command_provider'];
+        $provider = $mergedConfig['command_provider'] ?? [];
         Assert::string($provider);
 
         if ($provider === 'enqueue_php') {
