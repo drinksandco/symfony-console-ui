@@ -1,18 +1,8 @@
 'use strict';
 const electron = require('electron');
+const Dotenv = require('dotenv').config();
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
-
-// php ruleZ
-var path = require("path");
-var php = require("gulp-connect-php");
-php.server({
-    port: 8088,
-    base: path.resolve(__dirname) + '/public',
-    // this is now pointing to a possible local installation of php, that is best for portability
-    // feel free to change with a system-wide installed php, that is dirty & working, but less portable
-    bin: "/home/kpicaza/.phpenv/shims/php"
-});
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -35,7 +25,7 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow({width: 970, height: 600});
 
     // and load the app's front controller. Feel free to change with app_dev.php
-    mainWindow.loadURL("http://127.0.0.1:3000/cli/console-ui/root");
+    mainWindow.loadURL(process.env.CONSOLE_HOST + "/cli/console-ui/root");
 
     // Uncomment to open the DevTools.
     //mainWindow.webContents.openDevTools();

@@ -28,7 +28,11 @@
 </head>
 <body>
 
-<console-ui testsTypes="{{ commands|json_encode }}" tabs="{{ menu_items|json_encode }}"></console-ui>
+<console-ui
+        testsTypes="{{ commands|json_encode }}"
+        tabs="{{ menu_items|json_encode }}"
+        consoleEndpoint="{{ console_host }}"
+></console-ui>
 
 {% block javascripts %}
 {{ encore_entry_script_tags('component-loader') }}

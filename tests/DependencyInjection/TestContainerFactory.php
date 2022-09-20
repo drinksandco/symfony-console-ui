@@ -19,7 +19,7 @@ final class TestContainerFactory
         'command_provider' => 'enqueue_php',
         'provider_options' => [
             'enqueue_php' => [
-                'queue_name' => 'default_queue',
+                'queue_name' => 'console_queue',
             ]
         ],
     ];
@@ -53,6 +53,6 @@ final class TestContainerFactory
         $containerBuilder->register('event_dispatcher', EventDispatcherInterface::class)
             ->setClass(EventDispatcher::class);
 
-        $containerBuilder->register('enqueue.client.default_queue.lazy_producer', TestProducer::class);
+        $containerBuilder->register('enqueue.client.console_queue.lazy_producer', TestProducer::class);
     }
 }
