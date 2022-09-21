@@ -21,17 +21,17 @@ export class TestForm extends LitElement {
             text-align: left;
             --mdc-dialog-min-width: 320px;
         }
-        @media (min-width: 560px) { 
+        @media (min-width: 560px) {
             mwc-dialog {
                 --mdc-dialog-min-width: 520px;
             }
         }
-        @media (min-width: 760px) { 
+        @media (min-width: 760px) {
             mwc-dialog {
                 --mdc-dialog-min-width: 720px;
             }
         }
-        @media (min-width: 940px) { 
+        @media (min-width: 940px) {
             mwc-dialog {
                 --mdc-dialog-min-width: 920px;
             }
@@ -60,8 +60,6 @@ export class TestForm extends LitElement {
     inputArgumentValues: Array<string> = []
     @property()
     inputOptionValues: Array<string> = []
-    @property({type: URL})
-    consoleEndpoint = 'http://localhost:3000'
 
     @query('#dialog1')
     dialog!: HTMLDialogElement;
@@ -73,7 +71,7 @@ export class TestForm extends LitElement {
     @queryAll('.textfield-option mwc-checkbox')
     inputCheckNodes!: NodeList;
 
-    private openDialog() {
+  private openDialog() {
         this.hydrateInputs()
         this.dialog.open = true;
     }
@@ -133,7 +131,7 @@ export class TestForm extends LitElement {
         this.hydrateInputs()
 
         await api(
-            this.consoleEndpoint + '/cli/console-ui/schedule',
+            process.env.CONSOLE_API_URL + '/cli/console-ui/schedule',
             {
                 method: 'POST',
                 headers: {
@@ -205,7 +203,7 @@ export class TestForm extends LitElement {
     render() {
         return html`
             <mwc-button outlined label="" icon="play_arrow" trailingIcon @click="${this.openDialog}"></mwc-button>
-            <mwc-dialog id="dialog1" 
+            <mwc-dialog id="dialog1"
                         class=""
                         heading="${this.testType.name}"
             >
