@@ -65,9 +65,6 @@ export class TestCase extends LitElement {
     @property({type: String})
     cliOutput = ''
 
-    @property({type: URL})
-    consoleEndpoint = 'http://localhost:3000'
-
     constructor() {
         super();
         this.testStatus = TestStatus.STOPPED
@@ -76,8 +73,8 @@ export class TestCase extends LitElement {
 
     firstUpdated() {
         this.eventSource = new EventSource(
-            'http://localhost:3001/.well-known/mercure?topic=' +
-            encodeURIComponent('http://example.com/' + this.testType.name)
+          process.env.MERCURE_PUBLIC_URL + '?topic=' +
+            encodeURIComponent('http://console.ui/' + this.testType.name)
         );
 
         this.eventSource.onmessage = e => {
@@ -112,9 +109,8 @@ export class TestCase extends LitElement {
                     <p>${this.testType.name}</p>
                 </span>
                 <span slot="graphic" class="material-icons inverted play-button">
-                    <test-form 
-                            testType="${JSON.stringify(this.testType)}"
-                            consoleEndpoint="${this.consoleEndpoint}">
+                    <test-form
+                            testType="${JSON.stringify(this.testType)}">
                     </test-form>
                 </span>
                 <span slot="meta" class="material-icons side-icons">

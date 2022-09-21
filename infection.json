@@ -3,6 +3,9 @@
   "source": {
     "directories": [
       "src"
+    ],
+    "excludes": [
+      "./src/Command/StartConsoleUiCommand.php"
     ]
   },
   "mutators": {

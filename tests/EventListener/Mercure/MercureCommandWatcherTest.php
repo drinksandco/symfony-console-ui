@@ -21,7 +21,7 @@ class MercureCommandWatcherTest extends TestCase
         $hub->expects($this->once())
             ->method('publish')
             ->with(new Update(
-                    'http://example.com/help',
+                    'http://console.ui/help',
                     json_encode([
                         'status' => 'STOPPED',
                         'content' => 'bin/console help --format=txt' . PHP_EOL,
@@ -44,7 +44,7 @@ class MercureCommandWatcherTest extends TestCase
         $hub->expects($this->once())
             ->method('publish')
             ->with(new Update(
-                    'http://example.com/help',
+                    'http://console.ui/help',
                     json_encode([
                         'status' => 'RUNNING',
                         'content' => '',
@@ -67,7 +67,7 @@ class MercureCommandWatcherTest extends TestCase
         $hub->expects($this->once())
             ->method('publish')
             ->with(new Update(
-                    'http://example.com/help',
+                    'http://console.ui/help',
                     json_encode([
                         'status' => 'RUNNING',
                         'content' => 'hola',
@@ -91,7 +91,7 @@ class MercureCommandWatcherTest extends TestCase
         $hub->expects($this->once())
             ->method('publish')
             ->with(new Update(
-                    'http://example.com/help',
+                    'http://console.ui/help',
                     json_encode([
                         'status' => 'SUCCEEDED',
                         'content' => '0',
@@ -115,7 +115,7 @@ class MercureCommandWatcherTest extends TestCase
         $hub->expects($this->once())
             ->method('publish')
             ->with(new Update(
-                    'http://example.com/help',
+                    'http://console.ui/help',
                     json_encode([
                         'status' => 'FAILED',
                         'content' => 'ERROR',

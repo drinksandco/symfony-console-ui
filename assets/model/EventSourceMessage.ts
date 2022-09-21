@@ -1,6 +1,6 @@
 import {TestStatus} from "./TestStatus";
 
 export interface EventSourceMessage {
-    status: TestStatus
+    status: TestStatus,
     content: string
 }

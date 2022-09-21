@@ -1,7 +1,7 @@
 Escaped mutants:
 ================
 
-1) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:119    [M] Foreach_
+1) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:119    [M] Foreach_
 
 --- Original
 +++ New
@@ -16,7 +16,7 @@ Escaped mutants:
              if (in_array($rawNamespace, $command->getAliases())) {
 
 
-2) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:132    [M] FunctionCallRemoval
+2) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:132    [M] FunctionCallRemoval
 
 --- Original
 +++ New
@@ -31,7 +31,7 @@ Escaped mutants:
      /** @return array<Command> */
 
 
-3) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:134    [M] UnwrapArrayMerge
+3) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:134    [M] UnwrapArrayMerge
 
 --- Original
 +++ New
@@ -46,7 +46,7 @@ Escaped mutants:
      private function getNoNamespacedCommands(Application $application) : array
 
 
-4) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:28    [M] MethodCallRemoval
+4) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:28    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -61,7 +61,7 @@ Escaped mutants:
          Assert::string($provider);
 
 
-5) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:30    [M] ArrayItemRemoval
+5) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:30    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -76,7 +76,7 @@ Escaped mutants:
          if ($provider === 'enqueue_php') {
 
 
-6) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:30    [M] MethodCallRemoval
+6) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:30    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -91,7 +91,7 @@ Escaped mutants:
          if ($provider === 'enqueue_php') {
 
 
-7) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:43    [M] MethodCallRemoval
+7) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:43    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -106,7 +106,7 @@ Escaped mutants:
              Assert::isArray($mergedConfig['provider_options']['enqueue_php']);
 
 
-8) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:45    [M] MethodCallRemoval
+8) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:45    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -121,7 +121,7 @@ Escaped mutants:
              Assert::keyExists($providerOptions, 'queue_name');
 
 
-9) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:48    [M] MethodCallRemoval
+9) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiCompilerPass.php:48    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -136,13 +136,28 @@ Escaped mutants:
              $commandSchedulerDefinition = $container->register(CommandScheduler::class, EnqueueCommandScheduler::class)->addArgument(new Reference(sprintf('enqueue.client.%s.lazy_producer', $queueName)));
 
 
-10) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:31    [M] MethodCallRemoval
+10) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:31    [M] MethodCallRemoval
 
 --- Original
 +++ New
 @@ @@
+     /** @param array<mixed> $mergedConfig */
      public function loadInternal(array $mergedConfig, ContainerBuilder $container) : void
      {
+-        $this->configureStartConsoleCommand($container);
++        
+         $this->configureControllers($container);
+         $this->configureCommandProcessor($container);
+         $this->configureCommandHandler($container);
+
+
+11) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:33    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $this->configureStartConsoleCommand($container);
          $this->configureControllers($container);
 -        $this->configureCommandProcessor($container);
 +        
@@ -151,7 +166,7 @@ Escaped mutants:
      }
 
 
-11) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:33    [M] MethodCallRemoval
+12) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:35    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -166,7 +181,7 @@ Escaped mutants:
      {
 
 
-12) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:41    [M] TrueValue
+13) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:43    [M] TrueValue
 
 --- Original
 +++ New
@@ -181,7 +196,7 @@ Escaped mutants:
      private function configureCommandProcessor(ContainerBuilder $containerBuilder) : void
 
 
-13) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:45    [M] TrueValue
+14) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:47    [M] TrueValue
 
 --- Original
 +++ New
@@ -196,7 +211,7 @@ Escaped mutants:
      {
 
 
-14) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:54    [M] MethodCallRemoval
+15) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:56    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -211,7 +226,7 @@ Escaped mutants:
          if ('enqueue_php' === $provider) {
 
 
-15) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:58    [M] Identical
+16) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:60    [M] Identical
 
 --- Original
 +++ New
@@ -226,7 +241,7 @@ Escaped mutants:
              Assert::keyExists($config['provider_options'], 'enqueue_php');
 
 
-16) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:59    [M] MethodCallRemoval
+17) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:61    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -241,7 +256,7 @@ Escaped mutants:
              Assert::isArray($config['provider_options']['enqueue_php']);
 
 
-17) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:61    [M] MethodCallRemoval
+18) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:63    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -256,7 +271,7 @@ Escaped mutants:
              Assert::keyExists($providerOptions, 'queue_name');
 
 
-18) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:64    [M] MethodCallRemoval
+19) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:66    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -271,7 +286,7 @@ Escaped mutants:
              $containerBuilder->register(RunCommandProcessor::class, RunCommandProcessor::class)->addArgument(new Reference('event_dispatcher'))->addArgument(new Reference(ProcessFactory::class))->addArgument('%kernel.project_dir%')->setAutoconfigured(true)->addTag('enqueue.command_subscriber', ['name' => 'enqueue.command_subscriber', 'topicName' => 'run_command', 'client' => $queueName]);
 
 
-19) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:67    [M] MethodCallRemoval
+20) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:69    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -286,7 +301,7 @@ Escaped mutants:
      private function configureCommandHandler(ContainerBuilder $containerBuilder) : void
 
 
-20) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:71    [M] TrueValue
+21) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:73    [M] TrueValue
 
 --- Original
 +++ New
@@ -301,7 +316,7 @@ Escaped mutants:
      private function configureCommandHandler(ContainerBuilder $containerBuilder) : void
 
 
-21) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:74    [M] ArrayItemRemoval
+22) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:76    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -316,7 +331,7 @@ Escaped mutants:
      private function configureCommandHandler(ContainerBuilder $containerBuilder) : void
 
 
-22) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:88    [M] MethodCallRemoval
+23) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:90    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -327,10 +342,11 @@ Escaped mutants:
 -        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
 +        
      }
- }
+     private function configureStartConsoleCommand(ContainerBuilder $containerBuilder) : void
+     {
 
 
-23) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:90    [M] ArrayItemRemoval
+24) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:92    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -341,10 +357,11 @@ Escaped mutants:
 -        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
 +        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
      }
- }
+     private function configureStartConsoleCommand(ContainerBuilder $containerBuilder) : void
+     {
 
 
-24) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:94    [M] ArrayItemRemoval
+25) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:96    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -355,10 +372,11 @@ Escaped mutants:
 -        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
 +        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
      }
- }
+     private function configureStartConsoleCommand(ContainerBuilder $containerBuilder) : void
+     {
 
 
-25) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:98    [M] ArrayItemRemoval
+26) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:100    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -369,10 +387,11 @@ Escaped mutants:
 -        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
 +        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
      }
- }
+     private function configureStartConsoleCommand(ContainerBuilder $containerBuilder) : void
+     {
 
 
-26) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:102    [M] ArrayItemRemoval
+27) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:104    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -383,10 +402,11 @@ Escaped mutants:
 -        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
 +        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
      }
- }
+     private function configureStartConsoleCommand(ContainerBuilder $containerBuilder) : void
+     {
 
 
-27) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:106    [M] ArrayItemRemoval
+28) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:108    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -397,10 +417,25 @@ Escaped mutants:
 -        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['event' => CommandFailed::class, 'method' => 'handleCommandFailed']);
 +        $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)->addArgument(new Reference('mercure.hub.default'))->addTag('kernel.event_listener', ['event' => CommandStarted::class, 'method' => 'handleCommandStarted'])->addTag('kernel.event_listener', ['event' => ScheduledCommandReceived::class, 'method' => 'handleScheduledCommandReceived'])->addTag('kernel.event_listener', ['event' => CommandOutputReceived::class, 'method' => 'handleCommandOutputReceived'])->addTag('kernel.event_listener', ['event' => CommandSucceeded::class, 'method' => 'handleCommandSucceeded'])->addTag('kernel.event_listener', ['method' => 'handleCommandFailed']);
      }
+     private function configureStartConsoleCommand(ContainerBuilder $containerBuilder) : void
+     {
+
+
+29) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/DependencyInjection/ConsoleUiExtension.php:116    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function configureStartConsoleCommand(ContainerBuilder $containerBuilder) : void
+     {
+-        $containerBuilder->register(StartConsoleUiCommand::class, StartConsoleUiCommand::class)->addArgument('%kernel.project_dir%')->addTag('console.command');
++        
+     }
  }
 
 
-28) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:26    [M] IncrementInteger
+30) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:26    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -415,7 +450,7 @@ Escaped mutants:
              $process->start();
 
 
-29) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:34    [M] Identical
+31) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:34    [M] Identical
 
 --- Original
 +++ New
@@ -430,7 +465,7 @@ Escaped mutants:
                  $eventDispatcher->dispatch(new CommandOutputReceived('RUNNING', $command[0], $incrementalOutput, $process->getPid()));
 
 
-30) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:40    [M] IncrementInteger
+32) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:40    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -445,7 +480,7 @@ Escaped mutants:
                  throw new ProcessFailedException($process);
 
 
-31) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:52    [M] IncrementInteger
+33) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:52    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -460,7 +495,7 @@ Escaped mutants:
              $eventDispatcher->dispatch(new CommandFailed('FAILED', $command[0], $process->getErrorOutput(), $process->getStatus(), $process->getPid()));
 
 
-32) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:59    [M] IncrementInteger
+34) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:59    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -475,7 +510,7 @@ Escaped mutants:
              throw $exception;
 
 
-33) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:66    [M] IncrementInteger
+35) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:66    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -491,7 +526,7 @@ Escaped mutants:
  }
 
 
-34) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:72    [M] Throw_
+36) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Queue/ExecuteCommand.php:72    [M] Throw_
 
 --- Original
 +++ New
@@ -515,41 +550,812 @@ Skipped mutants:
 Not Covered mutants:
 ====================
 
-1) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:26    [M] ArrayItemRemoval
+1) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:23    [M] MethodCallRemoval
 
 --- Original
 +++ New
 @@ @@
-     private const DEFAULT_CONFIG = ['command_provider' => 'enqueue_php', 'provider_options' => ['enqueue_php' => ['queue_name' => 'console_queue']]];
-     public function build(ContainerBuilder $container) : void
+     private array $activeProcesses = [];
+     public function __construct(private readonly string $projectDir)
      {
--        $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
-+        $container->prependExtensionConfig('twig', []);
-         $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
-         $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
-         $container->addCompilerPass(new ConsoleUiCompilerPass());
-     }
- }
-
-
-2) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:26    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-     private const DEFAULT_CONFIG = ['command_provider' => 'enqueue_php', 'provider_options' => ['enqueue_php' => ['queue_name' => 'console_queue']]];
-     public function build(ContainerBuilder $container) : void
-     {
--        $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
+-        parent::__construct();
 +        
-         $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
-         $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
-         $container->addCompilerPass(new ConsoleUiCompilerPass());
+     }
+     protected function configure() : void
+     {
+
+
+2) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:28    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     protected function configure() : void
+     {
+-        $this->setName('_ui')->setDescription('Start Console UI Application')->addArgument('console_environment', InputArgument::OPTIONAL, 'Select between "local" or "docker" environments', 'local');
++        
+     }
+     protected function execute(InputInterface $input, OutputInterface $output) : int
+     {
+
+
+3) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:42    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     protected function execute(InputInterface $input, OutputInterface $output) : int
+     {
+         $environment = $input->getArgument('console_environment');
+-        /** @psalm-suppress RedundantCondition */
+-        Assert::string($environment);
++        
+         if ('local' === $environment) {
+             try {
+                 $this->runMercureLocal();
+
+
+4) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:44    [M] Identical
+
+--- Original
++++ New
+@@ @@
+         $environment = $input->getArgument('console_environment');
+         /** @psalm-suppress RedundantCondition */
+         Assert::string($environment);
+-        if ('local' === $environment) {
++        if ('local' !== $environment) {
+             try {
+                 $this->runMercureLocal();
+                 $this->runQueue();
+
+
+5) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:46    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         Assert::string($environment);
+         if ('local' === $environment) {
+             try {
+-                $this->runMercureLocal();
++                
+                 $this->runQueue();
+                 $this->runWebServer();
+                 $this->runElectronApp();
+
+
+6) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:47    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         if ('local' === $environment) {
+             try {
+                 $this->runMercureLocal();
+-                $this->runQueue();
++                
+                 $this->runWebServer();
+                 $this->runElectronApp();
+                 while (count($this->activeProcesses)) {
+
+
+7) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:48    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+             try {
+                 $this->runMercureLocal();
+                 $this->runQueue();
+-                $this->runWebServer();
++                
+                 $this->runElectronApp();
+                 while (count($this->activeProcesses)) {
+                     foreach ($this->activeProcesses as $index => $runningProcess) {
+
+
+8) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:49    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+                 $this->runMercureLocal();
+                 $this->runQueue();
+                 $this->runWebServer();
+-                $this->runElectronApp();
++                
+                 while (count($this->activeProcesses)) {
+                     foreach ($this->activeProcesses as $index => $runningProcess) {
+                         // specific process is finished, so we remove it
+
+
+9) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:51    [M] While_
+
+--- Original
++++ New
+@@ @@
+                 $this->runQueue();
+                 $this->runWebServer();
+                 $this->runElectronApp();
+-                while (count($this->activeProcesses)) {
++                while (false) {
+                     foreach ($this->activeProcesses as $index => $runningProcess) {
+                         // specific process is finished, so we remove it
+                         if (!$runningProcess->isRunning()) {
+
+
+10) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:52    [M] Foreach_
+
+--- Original
++++ New
+@@ @@
+                 $this->runWebServer();
+                 $this->runElectronApp();
+                 while (count($this->activeProcesses)) {
+-                    foreach ($this->activeProcesses as $index => $runningProcess) {
++                    foreach (array() as $index => $runningProcess) {
+                         // specific process is finished, so we remove it
+                         if (!$runningProcess->isRunning()) {
+                             unset($this->activeProcesses[$index]);
+
+
+11) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:54    [M] LogicalNot
+
+--- Original
++++ New
+@@ @@
+                 while (count($this->activeProcesses)) {
+                     foreach ($this->activeProcesses as $index => $runningProcess) {
+                         // specific process is finished, so we remove it
+-                        if (!$runningProcess->isRunning()) {
++                        if ($runningProcess->isRunning()) {
+                             unset($this->activeProcesses[$index]);
+                             if (!$runningProcess->isSuccessful()) {
+                                 throw new ProcessFailedException($runningProcess);
+
+
+12) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:56    [M] LogicalNot
+
+--- Original
++++ New
+@@ @@
+                         // specific process is finished, so we remove it
+                         if (!$runningProcess->isRunning()) {
+                             unset($this->activeProcesses[$index]);
+-                            if (!$runningProcess->isSuccessful()) {
++                            if ($runningProcess->isSuccessful()) {
+                                 throw new ProcessFailedException($runningProcess);
+                             }
+                         }
+
+
+13) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:57    [M] Throw_
+
+--- Original
++++ New
+@@ @@
+                         if (!$runningProcess->isRunning()) {
+                             unset($this->activeProcesses[$index]);
+                             if (!$runningProcess->isSuccessful()) {
+-                                throw new ProcessFailedException($runningProcess);
++                                new ProcessFailedException($runningProcess);
+                             }
+                         }
+                         $output->write($runningProcess->getIncrementalOutput());
+
+
+14) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:61    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+                                 throw new ProcessFailedException($runningProcess);
+                             }
+                         }
+-                        $output->write($runningProcess->getIncrementalOutput());
++                        
+                         // check every second
+                         sleep(1);
+                     }
+
+
+15) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:63    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+                         }
+                         $output->write($runningProcess->getIncrementalOutput());
+                         // check every second
+-                        sleep(1);
++                        sleep(0);
+                     }
+                 }
+             } catch (ProcessFailedException $exception) {
+
+
+16) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:63    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+                         }
+                         $output->write($runningProcess->getIncrementalOutput());
+                         // check every second
+-                        sleep(1);
++                        sleep(2);
+                     }
+                 }
+             } catch (ProcessFailedException $exception) {
+
+
+17) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:63    [M] FunctionCallRemoval
+
+--- Original
++++ New
+@@ @@
+                             }
+                         }
+                         $output->write($runningProcess->getIncrementalOutput());
+-                        // check every second
+-                        sleep(1);
++                        
+                     }
+                 }
+             } catch (ProcessFailedException $exception) {
+
+
+18) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:68    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+                 }
+             } catch (ProcessFailedException $exception) {
+                 $process = $exception->getProcess();
+-                Assert::isInstanceOf($process, Process::class);
++                
+                 foreach ($this->activeProcesses as $activeProcess) {
+                     $activeProcess->signal(SIGKILL);
+                 }
+
+
+19) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:69    [M] Foreach_
+
+--- Original
++++ New
+@@ @@
+             } catch (ProcessFailedException $exception) {
+                 $process = $exception->getProcess();
+                 Assert::isInstanceOf($process, Process::class);
+-                foreach ($this->activeProcesses as $activeProcess) {
++                foreach (array() as $activeProcess) {
+                     $activeProcess->signal(SIGKILL);
+                 }
+                 $output->writeln(sprintf('<error>%s%s</error>', $process->getIncrementalOutput(), $process->getErrorOutput()));
+
+
+20) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:70    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+                 $process = $exception->getProcess();
+                 Assert::isInstanceOf($process, Process::class);
+                 foreach ($this->activeProcesses as $activeProcess) {
+-                    $activeProcess->signal(SIGKILL);
++                    
+                 }
+                 $output->writeln(sprintf('<error>%s%s</error>', $process->getIncrementalOutput(), $process->getErrorOutput()));
+             }
+
+
+21) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:72    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+                 foreach ($this->activeProcesses as $activeProcess) {
+                     $activeProcess->signal(SIGKILL);
+                 }
+-                $output->writeln(sprintf('<error>%s%s</error>', $process->getIncrementalOutput(), $process->getErrorOutput()));
++                
+             }
+             return Command::SUCCESS;
+         }
+
+
+22) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:82    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+             }
+             return Command::SUCCESS;
+         }
+-        $output->writeln(sprintf('<error>Given console environment "%s" is not implemented</error>', $environment));
++        
+         return Command::FAILURE;
+     }
+     private function runMercureLocal() : void
+
+
+23) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:92    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function runMercureLocal() : void
+     {
+-        $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
++        $process = new Process([], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
+         $process->setTimeout(0);
+         $process->setPty(true);
+         $process->start();
+
+
+24) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:92    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function runMercureLocal() : void
+     {
+-        $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
++        $process = new Process(['./mercure'], $this->projectDir, ['ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
+         $process->setTimeout(0);
+         $process->setPty(true);
+         $process->start();
+
+
+25) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:95    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     }
+     private function runMercureLocal() : void
+     {
+-        $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
++        $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 0, 'CORS_ALLOWED_ORIGINS' => '*']);
+         $process->setTimeout(0);
+         $process->setPty(true);
+         $process->start();
+
+
+26) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:95    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     }
+     private function runMercureLocal() : void
+     {
+-        $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
++        $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 2, 'CORS_ALLOWED_ORIGINS' => '*']);
+         $process->setTimeout(0);
+         $process->setPty(true);
+         $process->start();
+
+
+27) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:98    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     private function runMercureLocal() : void
+     {
+         $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
+-        $process->setTimeout(0);
++        $process->setTimeout(-1);
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+28) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:98    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     private function runMercureLocal() : void
+     {
+         $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
+-        $process->setTimeout(0);
++        $process->setTimeout(1);
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+29) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:98    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     private function runMercureLocal() : void
+     {
+         $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
+-        $process->setTimeout(0);
++        
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+30) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:99    [M] TrueValue
+
+--- Original
++++ New
+@@ @@
+     {
+         $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
+         $process->setTimeout(0);
+-        $process->setPty(true);
++        $process->setPty(false);
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+
+
+31) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:99    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
+         $process->setTimeout(0);
+-        $process->setPty(true);
++        
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+
+
+32) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:101    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $process = new Process(['./mercure'], $this->projectDir, ['JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'], 'ADDR' => $_SERVER['MERCURE_HOST'], 'ALLOW_ANONYMOUS' => 1, 'CORS_ALLOWED_ORIGINS' => '*']);
+         $process->setTimeout(0);
+         $process->setPty(true);
+-        $process->start();
++        
+         $this->activeProcesses[] = $process;
+     }
+     private function runQueue() : void
+
+
+33) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:108    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function runQueue() : void
+     {
+-        $process = new Process(['bin/console', 'enqueue:consume', '--client=console_queue', '-vvv'], $this->projectDir);
++        $process = new Process(['enqueue:consume', '--client=console_queue', '-vvv'], $this->projectDir);
+         $process->setTimeout(0);
+         $process->setPty(true);
+         $process->start();
+
+
+34) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:109    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     private function runQueue() : void
+     {
+         $process = new Process(['bin/console', 'enqueue:consume', '--client=console_queue', '-vvv'], $this->projectDir);
+-        $process->setTimeout(0);
++        $process->setTimeout(-1);
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+35) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:109    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     private function runQueue() : void
+     {
+         $process = new Process(['bin/console', 'enqueue:consume', '--client=console_queue', '-vvv'], $this->projectDir);
+-        $process->setTimeout(0);
++        $process->setTimeout(1);
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+36) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:109    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     private function runQueue() : void
+     {
+         $process = new Process(['bin/console', 'enqueue:consume', '--client=console_queue', '-vvv'], $this->projectDir);
+-        $process->setTimeout(0);
++        
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+37) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:110    [M] TrueValue
+
+--- Original
++++ New
+@@ @@
+     {
+         $process = new Process(['bin/console', 'enqueue:consume', '--client=console_queue', '-vvv'], $this->projectDir);
+         $process->setTimeout(0);
+-        $process->setPty(true);
++        $process->setPty(false);
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+
+
+38) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:110    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $process = new Process(['bin/console', 'enqueue:consume', '--client=console_queue', '-vvv'], $this->projectDir);
+         $process->setTimeout(0);
+-        $process->setPty(true);
++        
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+
+
+39) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:112    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $process = new Process(['bin/console', 'enqueue:consume', '--client=console_queue', '-vvv'], $this->projectDir);
+         $process->setTimeout(0);
+         $process->setPty(true);
+-        $process->start();
++        
+         $this->activeProcesses[] = $process;
+     }
+     private function runWebServer() : void
+
+
+40) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:119    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function runWebServer() : void
+     {
+-        $process = new Process(['php', '-S', 'localhost:3000', '-t', 'public'], $this->projectDir);
++        $process = new Process(['-S', 'localhost:3000', '-t', 'public'], $this->projectDir);
+         $process->setTimeout(0);
+         $process->setPty(true);
+         $process->start();
+
+
+41) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:120    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     private function runWebServer() : void
+     {
+         $process = new Process(['php', '-S', 'localhost:3000', '-t', 'public'], $this->projectDir);
+-        $process->setTimeout(0);
++        $process->setTimeout(-1);
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+42) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:120    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     private function runWebServer() : void
+     {
+         $process = new Process(['php', '-S', 'localhost:3000', '-t', 'public'], $this->projectDir);
+-        $process->setTimeout(0);
++        $process->setTimeout(1);
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+43) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:120    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     private function runWebServer() : void
+     {
+         $process = new Process(['php', '-S', 'localhost:3000', '-t', 'public'], $this->projectDir);
+-        $process->setTimeout(0);
++        
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+
+
+44) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:121    [M] TrueValue
+
+--- Original
++++ New
+@@ @@
+     {
+         $process = new Process(['php', '-S', 'localhost:3000', '-t', 'public'], $this->projectDir);
+         $process->setTimeout(0);
+-        $process->setPty(true);
++        $process->setPty(false);
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+
+
+45) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:121    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $process = new Process(['php', '-S', 'localhost:3000', '-t', 'public'], $this->projectDir);
+         $process->setTimeout(0);
+-        $process->setPty(true);
++        
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+
+
+46) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:123    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $process = new Process(['php', '-S', 'localhost:3000', '-t', 'public'], $this->projectDir);
+         $process->setTimeout(0);
+         $process->setPty(true);
+-        $process->start();
++        
+         $this->activeProcesses[] = $process;
+     }
+     private function runElectronApp() : void
+
+
+47) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:130    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     private function runElectronApp() : void
+     {
+-        $process = new Process(['npm', 'run', 'console-ui-start'], $this->projectDir);
++        $process = new Process(['run', 'console-ui-start'], $this->projectDir);
+         $process->setTimeout(0);
+         $process->setPty(true);
+         $process->start();
+
+
+48) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:131    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     private function runElectronApp() : void
+     {
+         $process = new Process(['npm', 'run', 'console-ui-start'], $this->projectDir);
+-        $process->setTimeout(0);
++        $process->setTimeout(-1);
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
      }
  }
 
 
-3) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:27    [M] ArrayItemRemoval
+49) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:131    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     private function runElectronApp() : void
+     {
+         $process = new Process(['npm', 'run', 'console-ui-start'], $this->projectDir);
+-        $process->setTimeout(0);
++        $process->setTimeout(1);
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+ }
+
+
+50) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:131    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     private function runElectronApp() : void
+     {
+         $process = new Process(['npm', 'run', 'console-ui-start'], $this->projectDir);
+-        $process->setTimeout(0);
++        
+         $process->setPty(true);
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+ }
+
+
+51) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:132    [M] TrueValue
+
+--- Original
++++ New
+@@ @@
+     {
+         $process = new Process(['npm', 'run', 'console-ui-start'], $this->projectDir);
+         $process->setTimeout(0);
+-        $process->setPty(true);
++        $process->setPty(false);
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+ }
+
+
+52) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:132    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $process = new Process(['npm', 'run', 'console-ui-start'], $this->projectDir);
+         $process->setTimeout(0);
+-        $process->setPty(true);
++        
+         $process->start();
+         $this->activeProcesses[] = $process;
+     }
+ }
+
+
+53) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Command/StartConsoleUiCommand.php:134    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $process = new Process(['npm', 'run', 'console-ui-start'], $this->projectDir);
+         $process->setTimeout(0);
+         $process->setPty(true);
+-        $process->start();
++        
+         $this->activeProcesses[] = $process;
+     }
+ }
+
+
+54) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/ConsoleUiBundle.php:26    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -557,23 +1363,6 @@ Not Covered mutants:
      private const DEFAULT_CONFIG = ['command_provider' => 'enqueue_php', 'provider_options' => ['enqueue_php' => ['queue_name' => 'console_queue']]];
      public function build(ContainerBuilder $container) : void
      {
--        $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
-+        $container->prependExtensionConfig('twig', ['globals' => []]);
-         $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
-         $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
-         $container->addCompilerPass(new ConsoleUiCompilerPass());
-     }
- }
-
-
-4) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:29    [M] MethodCallRemoval
-
---- Original
-+++ New
-@@ @@
-     public function build(ContainerBuilder $container) : void
-     {
-         $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
 -        $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
 +        
          $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
@@ -582,13 +1371,13 @@ Not Covered mutants:
  }
 
 
-5) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:31    [M] ArrayItemRemoval
+55) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/ConsoleUiBundle.php:28    [M] ArrayItemRemoval
 
 --- Original
 +++ New
 @@ @@
+     public function build(ContainerBuilder $container) : void
      {
-         $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
          $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
 -        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
 +        $container->prependExtensionConfig('enqueue', []);
@@ -597,13 +1386,13 @@ Not Covered mutants:
  }
 
 
-6) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:31    [M] MethodCallRemoval
+56) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/ConsoleUiBundle.php:28    [M] MethodCallRemoval
 
 --- Original
 +++ New
 @@ @@
+     public function build(ContainerBuilder $container) : void
      {
-         $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
          $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
 -        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
 +        
@@ -612,13 +1401,13 @@ Not Covered mutants:
  }
 
 
-7) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:32    [M] ArrayItemRemoval
+57) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/ConsoleUiBundle.php:29    [M] ArrayItemRemoval
 
 --- Original
 +++ New
 @@ @@
+     public function build(ContainerBuilder $container) : void
      {
-         $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
          $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
 -        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
 +        $container->prependExtensionConfig('enqueue', ['console_queue' => ['client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
@@ -627,13 +1416,13 @@ Not Covered mutants:
  }
 
 
-8) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:33    [M] ArrayItemRemoval
+58) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/ConsoleUiBundle.php:30    [M] ArrayItemRemoval
 
 --- Original
 +++ New
 @@ @@
+     public function build(ContainerBuilder $container) : void
      {
-         $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
          $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
 -        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
 +        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => [], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
@@ -642,13 +1431,13 @@ Not Covered mutants:
  }
 
 
-9) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:36    [M] ArrayItemRemoval
+59) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/ConsoleUiBundle.php:33    [M] ArrayItemRemoval
 
 --- Original
 +++ New
 @@ @@
+     public function build(ContainerBuilder $container) : void
      {
-         $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
          $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
 -        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
 +        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['traceable_producer' => true]]]);
@@ -657,13 +1446,13 @@ Not Covered mutants:
  }
 
 
-10) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:38    [M] TrueValue
+60) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/ConsoleUiBundle.php:35    [M] TrueValue
 
 --- Original
 +++ New
 @@ @@
+     public function build(ContainerBuilder $container) : void
      {
-         $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
          $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
 -        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
 +        $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => false]]]);
@@ -672,12 +1461,12 @@ Not Covered mutants:
  }
 
 
-11) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/ConsoleUiBundle.php:43    [M] MethodCallRemoval
+61) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/ConsoleUiBundle.php:40    [M] MethodCallRemoval
 
 --- Original
 +++ New
 @@ @@
-         $container->prependExtensionConfig('twig', ['globals' => ['console_host' => '%env(CONSOLE_HOST)%']]);
+     {
          $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
          $container->prependExtensionConfig('enqueue', ['console_queue' => ['transport' => ['dsn' => '%env(CONSOLE_QUEUE_DSN)%'], 'client' => ['app_name' => 'console_ui%kernel.environment%', 'traceable_producer' => true]]]);
 -        $container->addCompilerPass(new ConsoleUiCompilerPass());
@@ -686,7 +1475,7 @@ Not Covered mutants:
  }
 
 
-12) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:123    [M] Continue_
+62) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:123    [M] Continue_
 
 --- Original
 +++ New
@@ -701,7 +1490,7 @@ Not Covered mutants:
                  $namespaces[explode(':', $rawNamespace)[0]] = null;
 
 
-13) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:127    [M] IncrementInteger
+63) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:127    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -716,7 +1505,7 @@ Not Covered mutants:
          $namespaces = array_keys($namespaces);
 
 
-14) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:142    [M] Foreach_
+64) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:142    [M] Foreach_
 
 --- Original
 +++ New
@@ -731,7 +1520,7 @@ Not Covered mutants:
                  continue;
 
 
-15) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:143    [M] MethodCallRemoval
+65) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:143    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -746,7 +1535,7 @@ Not Covered mutants:
              }
 
 
-16) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:144    [M] LogicalOr
+66) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:144    [M] LogicalOr
 
 --- Original
 +++ New
@@ -761,7 +1550,7 @@ Not Covered mutants:
              $commands[] = $command;
 
 
-17) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:145    [M] Continue_
+67) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:145    [M] Continue_
 
 --- Original
 +++ New
@@ -776,7 +1565,7 @@ Not Covered mutants:
          }
 
 
-18) /home/kpicaza/server/console-ui/sommelier-crawler/packages/console-ui-bundle/src/Controller/AppController.php:151    [M] ArrayOneItem
+68) /home/kpicaza/server/test-symfony-console/app/packages/console-ui-bundle/src/Controller/AppController.php:151    [M] ArrayOneItem
 
 --- Original
 +++ New

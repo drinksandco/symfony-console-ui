@@ -24,7 +24,7 @@ class MercureCommandWatcher implements CommandWatcher
     {
         $this->hub->publish(
             new Update(
-                'http://example.com/' . $event->command,
+                'http://console.ui/' . $event->command,
                 $this->parseMessage('STOPPED', 'bin/console ' . $event->commandLine . PHP_EOL)
             )
         );
@@ -34,7 +34,7 @@ class MercureCommandWatcher implements CommandWatcher
     {
         $this->hub->publish(
             new Update(
-                'http://example.com/' . $event->command,
+                'http://console.ui/' . $event->command,
                 $this->parseMessage('RUNNING', '', $event->processId)
             )
         );
@@ -44,7 +44,7 @@ class MercureCommandWatcher implements CommandWatcher
     {
         $this->hub->publish(
             new Update(
-                'http://example.com/' . $event->command,
+                'http://console.ui/' . $event->command,
                 $this->parseMessage('FAILED', $event->output, $event->processId)
             )
         );
@@ -54,7 +54,7 @@ class MercureCommandWatcher implements CommandWatcher
     {
         $this->hub->publish(
             new Update(
-                'http://example.com/' . $event->command,
+                'http://console.ui/' . $event->command,
                 $this->parseMessage('RUNNING', $event->output, $event->processId)
             )
         );
@@ -64,7 +64,7 @@ class MercureCommandWatcher implements CommandWatcher
     {
         $this->hub->publish(
             new Update(
-                'http://example.com/' . $event->command,
+                'http://console.ui/' . $event->command,
                 $this->parseMessage('SUCCEEDED', $event->exitCode, $event->processId)
             )
         );
