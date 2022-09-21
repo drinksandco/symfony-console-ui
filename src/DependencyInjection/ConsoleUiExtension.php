@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drinksco\ConsoleUiBundle\DependencyInjection;
 
+use Drinksco\ConsoleUiBundle\Command\StartConsoleUiCommand;
 use Drinksco\ConsoleUiBundle\Controller\AppController;
 use Drinksco\ConsoleUiBundle\Controller\CommandScheduleController;
 use Drinksco\ConsoleUiBundle\Event\CommandFailed;
@@ -27,6 +28,7 @@ class ConsoleUiExtension extends ConfigurableExtension
     /** @param array<mixed> $mergedConfig */
     public function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
+        $this->configureStartConsoleCommand($container);
         $this->configureControllers($container);
         $this->configureCommandProcessor($container);
         $this->configureCommandHandler($container);
@@ -107,5 +109,12 @@ class ConsoleUiExtension extends ConfigurableExtension
                 'event' => CommandFailed::class,
                 'method' => 'handleCommandFailed',
             ]);
+    }
+
+    private function configureStartConsoleCommand(ContainerBuilder $containerBuilder): void
+    {
+        $containerBuilder->register(StartConsoleUiCommand::class, StartConsoleUiCommand::class)
+            ->addArgument('%kernel.project_dir%')
+            ->addTag('console.command');
     }
 }

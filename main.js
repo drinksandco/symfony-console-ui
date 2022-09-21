@@ -4,6 +4,15 @@ const Dotenv = require('dotenv').config();
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
 
+app.commandLine.appendSwitch('ignore-certificate-errors', true);
+app.commandLine.appendSwitch('allow-insecure-localhost', 'true');
+
+app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+    // On certificate error we disable default behaviour (stop loading the page)
+    // and we then say "it is all fine - true" to the callback
+    event.preventDefault();
+    callback(true);
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -25,7 +34,7 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow({width: 970, height: 600});
 
     // and load the app's front controller. Feel free to change with app_dev.php
-    mainWindow.loadURL(process.env.CONSOLE_HOST + "/cli/console-ui/root");
+    mainWindow.loadURL(process.env.CONSOLE_API_URL + "/cli/console-ui/root");
 
     // Uncomment to open the DevTools.
     //mainWindow.webContents.openDevTools();

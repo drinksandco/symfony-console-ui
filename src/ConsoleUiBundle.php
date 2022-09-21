@@ -23,9 +23,6 @@ class ConsoleUiBundle extends Bundle
 
     public function build(ContainerBuilder $container): void
     {
-        $container->prependExtensionConfig('twig', [
-            'globals' => ['console_host' => '%env(CONSOLE_HOST)%'],
-        ]);
         $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
 
         $container->prependExtensionConfig('enqueue', [
