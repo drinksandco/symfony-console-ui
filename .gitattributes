@@ -1,0 +1,11 @@
+/tests       export-ignore
+/repo-images       export-ignore
+/.github export-ignore
+
+.gitignore export-ignore
+composer.lock export-ignore
+grumphp.yml export-ignore
+infection.json export-ignore
+infection.log export-ignore
+tsconfig.json export-ignore
+webpack.config.js export-ignore
