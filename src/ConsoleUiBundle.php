@@ -33,6 +33,8 @@ class ConsoleUiBundle extends Bundle
                 'client' => [
                     'app_name' => 'console_ui%kernel.environment%',
                     'traceable_producer' => true,
+                    'default_queue' => 'console_queue',
+                    'router_queue' => 'console_queue',
                 ]
             ],
         ]);

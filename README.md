@@ -13,9 +13,11 @@ An interactive, real-time User interface for the Symfony Console.
 
 * 🐧 Linux:
   * Ubuntu 20.04 + PHP 8.1
-  * Ubuntu 20.04 + Symfony Docker (Work in progress)
+  * Ubuntu 20.04 + Symfony Docker
     
 * 🍏 Mac OS:
+  * M1 2020 + PHP 8.1
+  * M1 2020 + Docker (Work in progress)
 
 * 🪟 Windows:
 
@@ -39,13 +41,13 @@ An interactive, real-time User interface for the Symfony Console.
 
 #### PHP 
 
-- [ ] 📢 Make it public
-- [ ] 🔼 Upload to packagist
+- [x] 📢 Make it public
+- [x] 🔼 Upload to packagist
 - [ ] 🧟 The X-Men are meshing up around our testsuite 
 
 #### TypeScript
 
-- [ ] 📢 Make it public
+- [x] 📢 Make it public
 - [ ] 🔼 Extract web-component as NPM package
 - [ ] 🛠️ Cover with unit tests
 
@@ -53,7 +55,7 @@ An interactive, real-time User interface for the Symfony Console.
 
 #### System
 
-* PHP 8.1
+* PHP 8.1 Or Docker
 * NPM + Yarn
 
 > We are working in a docker version to install system dependencies in a single command
@@ -114,6 +116,8 @@ Using flex Mercure will configure automatically for us.
 composer require --dev mercure
 ```
 
+> Using the [Symfony docker package](https://github.com/dunglas/symfony-docker) we can jump to the next step.
+
 Mercure requires a dedicated Hub you can use an open source version from [Mercure.Rocks](https://mercure.rocks/docs/hub/install).
 
 Install it from release page https://github.com/dunglas/mercure/releases and at the moment we will choose the legacy 
@@ -147,9 +151,19 @@ following command to download the latest stable version of this bundle:
 While there is not recipe yet we need to declare some environment variables for the Console UI
 
 ```env
+# Local Config
 CONSOLE_API_URL=http://localhost:3000
 CONSOLE_QUEUE_DSN=file:///absolute-path-to-project/var/queue/enqueue?pre_fetch_count=1&polling_interval=100
 MERCURE_HOST=localhost:3001
+MERCURE_URL=http://localhost:3001/.well-known/mercure
+MERCURE_PUBLIC_URL=http://localhost:3001/.well-known/mercure
+
+# Symfony Docker Config
+CONSOLE_API_URL=https://caddy:3000
+CONSOLE_QUEUE_DSN=file:///srv/app/var/queue/enqueue?pre_fetch_count=1&polling_interval=100
+MERCURE_HOST=caddy
+MERCURE_URL=https://caddy/.well-known/mercure
+MERCURE_PUBLIC_URL=https://caddy/.well-known/mercure
 ```
 
 > Don't forget to set your absolute path with write read and write permissions for the queue dsn. Also, double-check
@@ -216,6 +230,12 @@ when@dev:
 
 ```
 
+Clear cache to load newly added routes.
+
+```bash
+bin/console cache:clear
+```
+
 ### Step 6: Execute Electron App
 
 in the `package.json` file:
@@ -232,7 +252,10 @@ in the `package.json` file:
 We already had configured everything 😉 it's time to run our Symfony console UI
 
 ```bash
+# Local
 bin/console _ui
+# Symfony Docker
+bin/console _ui docker
 ```
 
 If you have any issue or feedback open an issue or a bug report. 

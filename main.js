@@ -4,7 +4,7 @@ const Dotenv = require('dotenv').config();
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
 
-app.commandLine.appendSwitch('ignore-certificate-errors', true);
+app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 app.commandLine.appendSwitch('allow-insecure-localhost', 'true');
 
 app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {

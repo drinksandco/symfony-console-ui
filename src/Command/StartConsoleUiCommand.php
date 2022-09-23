@@ -14,7 +14,7 @@ use Webmozart\Assert\Assert;
 
 class StartConsoleUiCommand extends Command
 {
-    /** @var array<Process>  */
+    /** @var array<Process> */
     private array $activeProcesses = [];
 
     public function __construct(
@@ -41,43 +41,41 @@ class StartConsoleUiCommand extends Command
         /** @psalm-suppress RedundantCondition */
         Assert::string($environment);
 
-        if ('local' === $environment) {
-            try {
+        try {
+            if ('local' === $environment) {
                 $this->runMercureLocal();
                 $this->runQueue();
                 $this->runWebServer();
                 $this->runElectronApp();
 
-                while (count($this->activeProcesses)) {
-                    foreach ($this->activeProcesses as $index => $runningProcess) {
-                        // specific process is finished, so we remove it
-                        if (! $runningProcess->isRunning()) {
-                            unset($this->activeProcesses[$index]);
-                            if (!$runningProcess->isSuccessful()) {
-                                throw new ProcessFailedException($runningProcess);
-                            }
-                        }
+                $this->checkProcesses($output);
 
-                        $output->write($runningProcess->getIncrementalOutput());
-                        // check every second
-                        sleep(1);
-                    }
-                }
-            } catch (ProcessFailedException $exception) {
-                $process = $exception->getProcess();
-                Assert::isInstanceOf($process, Process::class);
-                foreach ($this->activeProcesses as $activeProcess) {
-                    $activeProcess->signal(SIGKILL);
-                }
-                $output->writeln(sprintf(
-                    '<error>%s%s</error>',
-                    $process->getIncrementalOutput(),
-                    $process->getErrorOutput(),
-                ));
+                return Command::SUCCESS;
             }
 
-            return Command::SUCCESS;
+            if ('docker' === $environment) {
+                $this->runQueueInDocker();
+                $this->runElectronApp();
+
+                $this->checkProcesses($output);
+
+                return Command::SUCCESS;
+            }
+        } catch (ProcessFailedException $exception) {
+            $process = $exception->getProcess();
+            Assert::isInstanceOf($process, Process::class);
+            foreach ($this->activeProcesses as $activeProcess) {
+                $activeProcess->signal(SIGKILL);
+            }
+            $output->writeln(sprintf(
+                '<error>%s%s</error>',
+                $process->getIncrementalOutput(),
+                $process->getErrorOutput(),
+            ));
+
+            return Command::FAILURE;
         }
+
 
         $output->writeln(sprintf(
             '<error>Given console environment "%s" is not implemented</error>',
@@ -134,5 +132,43 @@ class StartConsoleUiCommand extends Command
         $process->start();
 
         $this->activeProcesses[] = $process;
+    }
+
+    private function runQueueInDocker(): void
+    {
+        $process = new Process([
+            'docker-compose',
+            'exec',
+            'php',
+            'bin/console',
+            'enqueue:consume',
+            '--client=console_queue',
+            '-vvv'
+        ], $this->projectDir);
+        $process->setTimeout(0);
+        $process->setPty(true);
+
+        $process->start();
+
+        $this->activeProcesses[] = $process;
+    }
+
+    private function checkProcesses(OutputInterface $output): void
+    {
+        while (count($this->activeProcesses)) {
+            foreach ($this->activeProcesses as $index => $runningProcess) {
+                // specific process is finished, so we remove it
+                if (!$runningProcess->isRunning()) {
+                    unset($this->activeProcesses[$index]);
+                    if (!$runningProcess->isSuccessful()) {
+                        throw new ProcessFailedException($runningProcess);
+                    }
+                }
+
+                $output->write($runningProcess->getIncrementalOutput());
+                // check every second
+                sleep(1);
+            }
+        }
     }
 }
