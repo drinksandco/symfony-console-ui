@@ -14,10 +14,14 @@ use Drinksco\ConsoleUiBundle\Event\CommandSucceeded;
 use Drinksco\ConsoleUiBundle\Event\ScheduledCommandReceived;
 use Drinksco\ConsoleUiBundle\EventListener\CommandWatcher;
 use Drinksco\ConsoleUiBundle\EventListener\Mercure\MercureCommandWatcher;
+use Drinksco\ConsoleUiBundle\Finder\CommandFinder;
+use Drinksco\ConsoleUiBundle\Finder\Symfony\SymfonyKernelApplicationFinder;
 use Drinksco\ConsoleUiBundle\Queue\ProcessFactory\ProcessFactory;
 use Drinksco\ConsoleUiBundle\Queue\ProcessFactory\SymfonyProcessFactory;
 use Drinksco\ConsoleUiBundle\Queue\QueueCommandHandler;
 use Drinksco\ConsoleUiBundle\Queue\Enqueue\RunCommandProcessor;
+use Symfony\Bundle\FrameworkBundle\Console\Application as KernelApplication;
+use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
@@ -29,16 +33,25 @@ class ConsoleUiExtension extends ConfigurableExtension
     public function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $this->configureStartConsoleCommand($container);
+        $this->configureCommandFinder($container);
         $this->configureControllers($container);
         $this->configureCommandProcessor($container);
         $this->configureCommandHandler($container);
         $this->configureCommandWatcher($container);
     }
 
+    private function configureCommandFinder(ContainerBuilder $containerBuilder): void
+    {
+        $containerBuilder->register(Application::class, KernelApplication::class)
+            ->addArgument(new Reference('kernel'));
+        $containerBuilder->register(CommandFinder::class, SymfonyKernelApplicationFinder::class)
+            ->addArgument(new Reference(Application::class));
+    }
+
     private function configureControllers(ContainerBuilder $containerBuilder): void
     {
         $containerBuilder->register(AppController::class, AppController::class)
-            ->addArgument(new Reference('kernel'))
+            ->addArgument(new Reference(CommandFinder::class))
             ->addArgument(new Reference('twig'))
             ->setAutoconfigured(true)
             ->addTag('controller.service_arguments');
