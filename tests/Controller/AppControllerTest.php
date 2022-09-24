@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Test\Drinksco\ConsoleUiBundle\Controller;
 
 use Drinksco\ConsoleUiBundle\Controller\AppController;
+use Drinksco\ConsoleUiBundle\Finder\Symfony\SymfonyKernelApplicationFinder;
 use Drinksco\ConsoleUiBundle\ReadModel\Argument;
 use Drinksco\ConsoleUiBundle\ReadModel\Command;
 use Drinksco\ConsoleUiBundle\ReadModel\Option;
 use Generator;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -28,10 +30,11 @@ class AppControllerTest extends TestCase
                 'menu_items' => ['root'],
             ]);
 
-        $controller = new AppController(
-            $this->createMock(KernelInterface::class),
-            $environment
+        $finder = new SymfonyKernelApplicationFinder(
+            new Application($this->createMock(KernelInterface::class))
         );
+
+        $controller = new AppController($finder, $environment);
 
         $request = new Request();
 
@@ -44,10 +47,11 @@ class AppControllerTest extends TestCase
         $this->expectException(NotFoundHttpException::class);
         $environment = $this->createMock(Environment::class);
 
-        $controller = new AppController(
-            $this->createMock(KernelInterface::class),
-            $environment
+        $finder = new SymfonyKernelApplicationFinder(
+            new Application($this->createMock(KernelInterface::class))
         );
+
+        $controller = new AppController($finder, $environment);
 
         $request = new Request([], [], ['namespace' => 'foo']);
 
