@@ -1,6 +1,26 @@
 # Changelog
 
-## [0.0.2](https://github.com/drinksandco/symfony-console-ui/tree/0.0.2)
+## [0.0.3](https://github.com/drinksandco/symfony-console-ui/tree/0.0.3)
+
+[Full Changelog](https://github.com/drinksandco/symfony-console-ui/compare/0.0.2...0.0.3)
+
+**Implemented enhancements:**
+
+- Decouple CommandFinder from AppController [\#18](https://github.com/drinksandco/symfony-console-ui/pull/18) (@kpicaza)
+- Add pull request template [\#15](https://github.com/drinksandco/symfony-console-ui/pull/15) (@kpicaza)
+- Add and document symfony docker support [\#12](https://github.com/drinksandco/symfony-console-ui/pull/12) (@kpicaza)
+
+**Fixed bugs:**
+
+- \[\#16\] update install with symfony flex section [\#17](https://github.com/drinksandco/symfony-console-ui/pull/17) (@kpicaza)
+
+**Merged pull requests:**
+
+- Add contributing file [\#14](https://github.com/drinksandco/symfony-console-ui/pull/14) (@kpicaza)
+- Add code of conduct [\#13](https://github.com/drinksandco/symfony-console-ui/pull/13) (@kpicaza)
+- Put license file [\#10](https://github.com/drinksandco/symfony-console-ui/pull/10) (@kpicaza)
+
+## [0.0.2](https://github.com/drinksandco/symfony-console-ui/tree/0.0.2) (2022-09-23)
 
 [Full Changelog](https://github.com/drinksandco/symfony-console-ui/compare/0.0.1...0.0.2)
 
