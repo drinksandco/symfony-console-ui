@@ -1,11 +1,11 @@
 Console UI Bundle
-============ 
+============
 
 > With great power comes great responsibility.
 
 An interactive, real-time User interface for the Symfony Console.
 
-> 🚧 We are at early development stage, every contribution of every type will be welcome and properly attributed.
+> 🚧 We are at a developing stage, every contribution in every aspect will be welcomed and properly attributed.
 
 ![Open console](repo-images/console-open-1.png)
 
@@ -21,7 +21,7 @@ An interactive, real-time User interface for the Symfony Console.
 
 * 🪟 Windows:
 
-> If you try it open us an issue to let us know your experience :
+> If you try it, you are encouraged to make a GitHub issue to let us know your experience :
 
 ## Features
 
@@ -82,7 +82,7 @@ of the Composer documentation.
 
 ## Applications that use Symfony Flex
 
-> We haven't done any Flex recipe yet, look at the ""Applications that don't use Symfony Flex section for the bundle configuration.
+> We have not done any Flex recipe yet, look at the Applications that don't use Symfony Flex section for the bundle configuration.
 
 Open a command console, enter your project directory and execute:
 
@@ -91,7 +91,8 @@ Open a command console, enter your project directory and execute:
 composer require --dev symfony/webpack-encore-bundle marcure enqueue/enqueue-bundle enqueue/fs drinksco/console-ui-bundle
 ```
 
-If using Symfony Docker jump to step 4: Configure webpack. If using local configuration check also how to set up 
+If using Symfony Docker: Jump to step 4: Configure webpack.
+If using local configuration check how to set up 
 Mercure Hub in "Install Symfony Mercure Component and Hub" section.
 
 ## Applications that don't use Symfony Flex
@@ -113,7 +114,7 @@ composer require --dev symfony/webpack-encore-bundle
 Mercure is a high performance socket server, it allows us to get realtime console output in the UI. 
 Follow [the official docs](https://symfony.com/doc/current/mercure.html) to get it up and running.
 
-Using flex Mercure will configure automatically for us.
+Using flex, Mercure will configure automatically for us.
 
 ```bash
 # If not installed yet
@@ -122,25 +123,25 @@ composer require --dev mercure
 
 > Using the [Symfony docker package](https://github.com/dunglas/symfony-docker) we can jump to the next step.
 
-Mercure requires a dedicated Hub you can use an open source version from [Mercure.Rocks](https://mercure.rocks/docs/hub/install).
+Mercure requires a dedicated Hub. You can use an open source version from [Mercure.Rocks](https://mercure.rocks/docs/hub/install).
 
-Install it from release page https://github.com/dunglas/mercure/releases and at the moment we will choose the legacy 
+Install it from release page https://github.com/dunglas/mercure/releases and at the moment we will choose the legacy
 version for your SO.
 
 Download the binary and put it in the project root.
 
 > Why Mercure? It allows us to communicate between background running commands and frontend. We can search another
-"more friendly" alternative  as running commands inside an http request, but it will hurt directly the console tool
-performance, or it will not be possible to run long processes.
+"more friendly" alternative  as running commands inside an 'http' request, but it will directly reduce the console tool
+performance or it will not be possible to run long processes.
 
 #### Install Forma-Pro Enqueue Bundle
 
-Enqueue Bundle allows us to run commands in its own processes, combined with Mercure Sockets it gives us the real-time 
+Enqueue Bundle allows us to run commands in its own processes, when combined with Mercure Sockets it gives us the real-time
 execution flow.
 
 Follow [the official docs](https://php-enqueue.github.io/bundle/quick_tour/) to get it up and running.
 
-Then install the Filesystem Transport it will do the work 😉.
+Then install the Filesystem Transport it will do rest of the work 😉.
 
 ```bash
 # If not installed yet
@@ -152,7 +153,7 @@ composer require --dev enqueue/enqueue-bundle enqueue/fs
 Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
-While there is not recipe yet we need to declare some environment variables for the Console UI
+While there is not recipe yet, we need to declare some environment variables for the Console UI
 
 ```env
 # Local Config
@@ -170,7 +171,7 @@ MERCURE_URL=https://caddy/.well-known/mercure
 MERCURE_PUBLIC_URL=https://caddy/.well-known/mercure
 ```
 
-> Don't forget to set your absolute path with write read and write permissions for the queue dsn. Also, double-check
+> Do not forget to set your absolute path with write read and write permissions for the queue dsn. Also, double-check
 > the Mercure environment variables for host or port mismatches
 
 ```console
@@ -195,10 +196,10 @@ return [
 
 > Console UI Web component should be updated to npm
 
-Then [enable TypeScript support](https://symfony.com/doc/current/frontend/encore/typescript.html). And last add an
+Then [enable TypeScript support](https://symfony.com/doc/current/frontend/encore/typescript.html). Lastly add an
 entry for the `console-ui` web component.
 
-While we are not available console-ui component via npm, we need to install and configure it.
+While we are not available `console-ui` component via npm, we need to install and configure it.
 
 ```bash
 yarn add --dev @hotwired/stimulus @symfony/stimulus-bridge @symfony/webpack-encore core-js dotenv dotenv-webpack electron regenerator-runtime ts-loader typescript webpack-notifier @material/card @material/mwc-button @material/mwc-checkbox @material/mwc-circular-progress @material/mwc-dialog @material/mwc-formfield @material/mwc-icon @material/mwc-list @material/mwc-textfield @material/mwc-top-app-bar-fixed @webcomponents/webcomponentsjs lit material-components-web
@@ -253,7 +254,7 @@ in the `package.json` file:
     }
 ```
 
-We already had configured everything 😉 it's time to run our Symfony console UI
+Now, we have configured everything 😉, it is time to run our Symfony console UI🚀
 
 ```bash
 # Local
@@ -262,4 +263,4 @@ bin/console _ui
 bin/console _ui docker
 ```
 
-If you have any issue or feedback open an issue or a bug report. 
+If you run into issues or want to give us feedback, you are encouraged to make a GitHub issue or a bug report.
