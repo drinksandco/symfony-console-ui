@@ -88,12 +88,12 @@ Open a command console, enter your project directory and execute:
 
 ```bash
 # We add all deps to ensure we dispatch every flex events. 
-composer require --dev symfony/webpack-encore-bundle marcure enqueue/enqueue-bundle enqueue/fs drinksco/console-ui-bundle
+composer require --dev symfony/webpack-encore-bundle mercure enqueue/enqueue-bundle enqueue/fs drinksco/console-ui-bundle
 ```
 
 If using Symfony Docker: Jump to step 4: Configure webpack.
-If using local configuration check how to set up 
-Mercure Hub in "Install Symfony Mercure Component and Hub" section.
+
+If using local configuration check how to set up Mercure Hub in "Install Symfony Mercure Component and Hub" section.
 
 ## Applications that don't use Symfony Flex
 

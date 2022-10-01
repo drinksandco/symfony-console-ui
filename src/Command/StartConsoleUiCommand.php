@@ -65,7 +65,9 @@ class StartConsoleUiCommand extends Command
             $process = $exception->getProcess();
             Assert::isInstanceOf($process, Process::class);
             foreach ($this->activeProcesses as $activeProcess) {
-                $activeProcess->signal(SIGKILL);
+                if ($activeProcess->isRunning()) {
+                    $activeProcess->signal(SIGKILL);
+                }
             }
             $output->writeln(sprintf(
                 '<error>%s%s</error>',
