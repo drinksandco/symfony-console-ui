@@ -1,6 +1,22 @@
 # Changelog
 
-## [0.0.3](https://github.com/drinksandco/symfony-console-ui/tree/0.0.3)
+## [0.1.0](https://github.com/drinksandco/symfony-console-ui/tree/0.1.0)
+
+[Full Changelog](https://github.com/drinksandco/symfony-console-ui/compare/0.0.3...0.1.0)
+
+**Implemented enhancements:**
+
+- \[\#29\] setup repo for recipe installation [\#33](https://github.com/drinksandco/symfony-console-ui/pull/33) (@kpicaza)
+
+**Closed issues:**
+
+- \[Docs\]: Review README.md grammar [\#19](https://github.com/drinksandco/symfony-console-ui/issues/19)
+
+**Merged pull requests:**
+
+- Fixed console-ui bundle readme grammar [\#32](https://github.com/drinksandco/symfony-console-ui/pull/32) (@VividhPandey003)
+
+## [0.0.3](https://github.com/drinksandco/symfony-console-ui/tree/0.0.3) (2022-09-25)
 
 [Full Changelog](https://github.com/drinksandco/symfony-console-ui/compare/0.0.2...0.0.3)
 
