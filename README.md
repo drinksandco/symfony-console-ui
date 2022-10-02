@@ -158,17 +158,14 @@ While there is not recipe yet, we need to declare some environment variables for
 ```env
 # Local Config
 CONSOLE_API_URL=http://localhost:3000
-CONSOLE_QUEUE_DSN=file:///absolute-path-to-project/var/queue/enqueue?pre_fetch_count=1&polling_interval=100
-MERCURE_HOST=localhost:3001
-MERCURE_URL=http://localhost:3001/.well-known/mercure
-MERCURE_PUBLIC_URL=http://localhost:3001/.well-known/mercure
+CONSOLE_UI_MERCURE_URL=http://localhost:3001/.well-known/mercure
+CONSOLE_UI_JWT_SECRET="!ChangeThisMercureHubJWTSecretKey!"
 
 # Symfony Docker Config
 CONSOLE_API_URL=https://caddy:3000
 CONSOLE_QUEUE_DSN=file:///srv/app/var/queue/enqueue?pre_fetch_count=1&polling_interval=100
-MERCURE_HOST=caddy
-MERCURE_URL=https://caddy/.well-known/mercure
-MERCURE_PUBLIC_URL=https://caddy/.well-known/mercure
+CONSOLE_UI_MERCURE_URL=https://caddy/.well-known/mercure
+CONSOLE_UI_MERCURE_PUBLIC_URL=https://caddy/.well-known/mercure
 ```
 
 > Do not forget to set your absolute path with write read and write permissions for the queue dsn. Also, double-check
@@ -201,10 +198,6 @@ entry for the `console-ui` web component.
 
 While we are not available `console-ui` component via npm, we need to install and configure it.
 
-```bash
-yarn add --dev @hotwired/stimulus @symfony/stimulus-bridge @symfony/webpack-encore core-js dotenv dotenv-webpack electron regenerator-runtime ts-loader typescript webpack-notifier @material/card @material/mwc-button @material/mwc-checkbox @material/mwc-circular-progress @material/mwc-dialog @material/mwc-formfield @material/mwc-icon @material/mwc-list @material/mwc-textfield @material/mwc-top-app-bar-fixed @webcomponents/webcomponentsjs lit material-components-web
-```
-
 ```javascript
 // webpack.config.js
 const Dotenv = require('dotenv-webpack');
@@ -217,6 +210,23 @@ const Dotenv = require('dotenv-webpack');
     ...
     .addPlugin(new Dotenv())
 ...
+```
+
+in the `package.json` file:
+
+```json
+...
+    "main": "./vendor/drinksco/console-ui-bundle/main.js",
+    "scripts": {
+        ...
+        "console-ui-start": "electron ."
+    }
+```
+
+Install NPM dependencies
+
+```bash
+yarn add --dev @hotwired/stimulus @symfony/stimulus-bridge @symfony/webpack-encore core-js dotenv dotenv-webpack electron regenerator-runtime ts-loader typescript webpack-notifier @material/card @material/mwc-button @material/mwc-checkbox @material/mwc-circular-progress @material/mwc-dialog @material/mwc-formfield @material/mwc-icon @material/mwc-list @material/mwc-textfield @material/mwc-top-app-bar-fixed @webcomponents/webcomponentsjs lit material-components-web
 ```
 
 Then build the Web Components
@@ -242,17 +252,6 @@ bin/console cache:clear
 ```
 
 ### Step 6: Execute Electron App
-
-in the `package.json` file:
-
-```json
-...
-    "main": "./vendor/drinksco/console-ui-bundle/main.js",
-    "scripts": {
-        ...
-        "console-ui-start": "electron ."
-    }
-```
 
 Now, we have configured everything 😉, it is time to run our Symfony console UI🚀
 
