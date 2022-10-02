@@ -23,8 +23,13 @@ use Drinksco\ConsoleUiBundle\Queue\Enqueue\RunCommandProcessor;
 use Symfony\Bundle\FrameworkBundle\Console\Application as KernelApplication;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
+use Symfony\Component\Mercure\Debug\TraceableHub;
+use Symfony\Component\Mercure\Hub;
+use Symfony\Component\Mercure\Jwt\FactoryTokenProvider;
+use Symfony\Component\Mercure\Jwt\LcobucciFactory;
 use Webmozart\Assert\Assert;
 
 class ConsoleUiExtension extends ConfigurableExtension
@@ -35,6 +40,7 @@ class ConsoleUiExtension extends ConfigurableExtension
         $this->configureStartConsoleCommand($container);
         $this->configureCommandFinder($container);
         $this->configureControllers($container);
+        $this->configureHub($container);
         $this->configureCommandProcessor($container);
         $this->configureCommandHandler($container);
         $this->configureCommandWatcher($container);
@@ -50,6 +56,7 @@ class ConsoleUiExtension extends ConfigurableExtension
 
     private function configureControllers(ContainerBuilder $containerBuilder): void
     {
+        $containerBuilder->setParameter('env(CONSOLE_API_URL)', 'http://localhost:3000');
         $containerBuilder->register(AppController::class, AppController::class)
             ->addArgument(new Reference(CommandFinder::class))
             ->addArgument(new Reference('twig'))
@@ -101,7 +108,7 @@ class ConsoleUiExtension extends ConfigurableExtension
     private function configureCommandWatcher(ContainerBuilder $containerBuilder): void
     {
         $containerBuilder->register(CommandWatcher::class, MercureCommandWatcher::class)
-            ->addArgument(new Reference('mercure.hub.default'))
+            ->addArgument(new Reference('console_ui.hub.default'))
             ->addTag('kernel.event_listener', [
                 'event' => CommandStarted::class,
                 'method' => 'handleCommandStarted',
@@ -129,5 +136,34 @@ class ConsoleUiExtension extends ConfigurableExtension
         $containerBuilder->register(StartConsoleUiCommand::class, StartConsoleUiCommand::class)
             ->addArgument('%kernel.project_dir%')
             ->addTag('console.command');
+    }
+
+    private function configureHub(ContainerBuilder $containerBuilder): void
+    {
+        $containerBuilder->setParameter('env(CONSOLE_UI_JWT_SECRET)', '!ChangeThisMercureHubJWTSecretKey!');
+        $containerBuilder->setParameter('env(CONSOLE_UI_MERCURE_URL)', 'http://localhost:3001/.well-known/mercure');
+        $containerBuilder->setParameter(
+            'env(CONSOLE_UI_MERCURE_PUBLIC_URL)',
+            'http://localhost:3001/.well-known/mercure'
+        );
+
+        $containerBuilder->register('console_ui.hub.default.jwt.factory', LcobucciFactory::class)
+            ->addArgument('%env(CONSOLE_UI_JWT_SECRET)%')
+            ->addArgument('hmac.sha256')
+            ->addArgument(null)
+            ->addArgument('')
+            ->addTag('mercure.jwt.factory');
+        $containerBuilder->register('console_ui.hub.default.jwt.provider', FactoryTokenProvider::class)
+            ->addArgument(new Reference('console_ui.hub.default.jwt.factory'))
+            ->addArgument([])
+            ->addArgument(['*'])
+            ->addTag('mercure.jwt.factory');
+        $containerBuilder->register('console_ui.hub.default', Hub::class)
+            ->addArgument('%env(CONSOLE_UI_MERCURE_URL)%')
+            ->addArgument(new Reference('console_ui.hub.default.jwt.provider'))
+            ->addArgument(new Reference('console_ui.hub.default.jwt.factory'))
+            ->addArgument('%env(CONSOLE_UI_MERCURE_PUBLIC_URL)%')
+            ->addArgument((new Reference('http_client', ContainerInterface::IGNORE_ON_INVALID_REFERENCE)))
+            ->addTag('mercure.hub');
     }
 }

@@ -89,9 +89,16 @@ class StartConsoleUiCommand extends Command
 
     private function runMercureLocal(): void
     {
+        Assert::string($_SERVER['CONSOLE_UI_MERCURE_URL']);
+        $parsedUrl = parse_url($_SERVER['CONSOLE_UI_MERCURE_URL']);
+        Assert::isArray($parsedUrl);
         $process = new Process(['./mercure'], $this->projectDir, [
-            'JWT_KEY' => $_SERVER['MERCURE_JWT_SECRET'],
-            'ADDR' => $_SERVER['MERCURE_HOST'],
+            'JWT_KEY' => $_SERVER['CONSOLE_UI_JWT_SECRET'],
+            'ADDR' => sprintf(
+                '%s:%s',
+                $parsedUrl['host'] ?? 'localhost',
+                $parsedUrl['port'] ?? 3000
+            ),
             'ALLOW_ANONYMOUS' => 1,
             'CORS_ALLOWED_ORIGINS' => '*'
         ]);

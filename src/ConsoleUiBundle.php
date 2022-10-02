@@ -24,6 +24,7 @@ class ConsoleUiBundle extends Bundle
     public function build(ContainerBuilder $container): void
     {
         $container->loadFromExtension('console_ui', self::DEFAULT_CONFIG);
+        $container->setParameter('env(CONSOLE_QUEUE_DSN)', 'file://%kernel.project_dir%/var/queue');
 
         $container->prependExtensionConfig('enqueue', [
             'console_queue' => [

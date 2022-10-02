@@ -73,7 +73,7 @@ export class TestCase extends LitElement {
 
     firstUpdated() {
         this.eventSource = new EventSource(
-          process.env.MERCURE_PUBLIC_URL + '?topic=' +
+          process.env.CONSOLE_UI_MERCURE_PUBLIC_URL + '?topic=' +
             encodeURIComponent('http://console.ui/' + this.testType.name)
         );
 
