@@ -1,6 +1,18 @@
 # Changelog
 
-## [0.1.0](https://github.com/drinksandco/symfony-console-ui/tree/0.1.0)
+## [0.2.0](https://github.com/drinksandco/symfony-console-ui/tree/0.2.0)
+
+[Full Changelog](https://github.com/drinksandco/symfony-console-ui/compare/0.1.0...0.2.0)
+
+**Implemented enhancements:**
+
+- \[\#16\] define our mercure hub service [\#35](https://github.com/drinksandco/symfony-console-ui/pull/35) (@kpicaza)
+
+**Fixed bugs:**
+
+- \[Bug\]: mercure.hub.default doesn't exists. [\#16](https://github.com/drinksandco/symfony-console-ui/issues/16)
+
+## [0.1.0](https://github.com/drinksandco/symfony-console-ui/tree/0.1.0) (2022-10-02)
 
 [Full Changelog](https://github.com/drinksandco/symfony-console-ui/compare/0.0.3...0.1.0)
 
