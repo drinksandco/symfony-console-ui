@@ -1,0 +1,26 @@
+{
+  "console-ui": [
+    {
+      "id": "root",
+      "commands": [
+        {
+          "description": "test",
+          "name": "test",
+          "command": "test",
+          "arguments": [],
+          "options": []
+        },
+        {
+          "description": "test1",
+          "name": "test1",
+          "command": "test1",
+          "arguments": [],
+          "options": []
+        }
+      ],
+      "menu_items": [
+        "root"
+      ]
+    }
+  ]
+}
