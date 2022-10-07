@@ -5,7 +5,6 @@
   "type": "symfony-bundle",
   "require": {
     "php": "^8.1",
-    "ext-pcntl": "*",
     "symfony/mercure": "^0.6.1",
     "enqueue/enqueue-bundle": "^0.10.16",
     "symfony/framework-bundle": "^6.0",
