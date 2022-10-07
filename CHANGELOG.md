@@ -1,6 +1,14 @@
 # Changelog
 
-## [0.2.0](https://github.com/drinksandco/symfony-console-ui/tree/0.2.0)
+## [0.3.0](https://github.com/drinksandco/symfony-console-ui/tree/0.3.0)
+
+[Full Changelog](https://github.com/drinksandco/symfony-console-ui/compare/0.2.0...0.3.0)
+
+**Merged pull requests:**
+
+- remove pcntl dep [\#38](https://github.com/drinksandco/symfony-console-ui/pull/38) (@kpicaza)
+
+## [0.2.0](https://github.com/drinksandco/symfony-console-ui/tree/0.2.0) (2022-10-02)
 
 [Full Changelog](https://github.com/drinksandco/symfony-console-ui/compare/0.1.0...0.2.0)
 
